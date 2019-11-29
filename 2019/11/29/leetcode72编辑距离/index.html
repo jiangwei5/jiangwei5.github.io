@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>tags | jiangwei5</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="tags | jiangwei5">
+  <title>leetcode72.编辑距离 | jiangwei5</title>
+  <meta name="keywords" content=" 算法 , leetcode ">
+  <meta name="description" content="leetcode72.编辑距离 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -255,24 +255,38 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-leetcode72编辑距离" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">tags</h1>
+        <h1 class="article-title">leetcode72.编辑距离</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            
+                <a  data-rel="leetcode">leetcode</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color3">算法</a>
+            
+            <a class="color4">leetcode</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-29 10:44:25'>2019-11-29 10:43</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-29 21:13:43'>2019-11-29 21:02</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:0</span>
+        <span>字数:405</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -291,7 +305,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -307,7 +321,53 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <blockquote>
+<p>非常经典的动态规划题，据说编辑距离在自然语言处理中也有广泛应用</p>
+</blockquote>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。</p>
+<p>你可以对一个单词进行如下三种操作：</p>
+<p>插入一个字符<br>删除一个字符<br>替换一个字符<br>示例 1:</p>
+<pre><code>输入: word1 = &quot;horse&quot;, word2 = &quot;ros&quot;
+输出: 3
+解释: 
+horse -&gt; rorse (将 &#39;h&#39; 替换为 &#39;r&#39;)
+rorse -&gt; rose (删除 &#39;r&#39;)
+rose -&gt; ros (删除 &#39;e&#39;)</code></pre><p>示例 2:</p>
+<pre><code>输入: word1 = &quot;intention&quot;, word2 = &quot;execution&quot;
+输出: 5
+解释: 
+intention -&gt; inention (删除 &#39;t&#39;)
+inention -&gt; enention (将 &#39;i&#39; 替换为 &#39;e&#39;)
+enention -&gt; exention (将 &#39;n&#39; 替换为 &#39;x&#39;)
+exention -&gt; exection (将 &#39;n&#39; 替换为 &#39;c&#39;)
+exection -&gt; execution (插入 &#39;u&#39;)</code></pre><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/edit-distance" target="_blank" rel="noopener">https://leetcode-cn.com/problems/edit-distance</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><pre><code>class Solution {
+public:
+    int minDistance(string word1, string word2) {
+        int m = word1.length();
+        int n = word2.length();
+
+        vector&lt;vector&lt;int&gt;&gt; cost(m+1, vector&lt;int&gt;(n+1));
+
+        for (int i = 0; i &lt;= m; ++i) {
+            cost[i][0] = i;
+        }
+        for (int j = 0; j &lt;= n; ++j) {
+            cost[0][j] = j;
+        }
+        for (int i = 1; i &lt;= m; ++i) {
+            for (int j = 1; j &lt;= n; ++j) {
+                if (word1[i-1] == word2[j-1]) {
+                    cost[i][j] = cost[i-1][j-1];
+                } else {
+                    cost[i][j] = 1 + min(cost[i-1][j-1], min(cost[i][j-1], cost[i-1][j]));
+                }             
+            }
+        }
+        return cost[m][n];
+    }
+};</code></pre><p>此题可以引申： 插入、删除、替换代表的权值可以不同，最后求权值和最小的解</p>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
     </div>
@@ -318,6 +378,18 @@
     <a  class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>leetcode72.编辑距离</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">405</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-29, 21:02:56</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-29, 21:13:43</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/29/leetcode72%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/" title="leetcode72.编辑距离">http://jiangwei5.github.io/2019/11/29/leetcode72%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 
