@@ -7,11 +7,11 @@
   <meta name="description" content="排序算法汇总 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http:&#x2F;&#x2F;jiangwei5.github.io&#x2F;categories&#x2F;index.html">
+<meta property="og:title" content="tags">
+<meta property="og:url" content="http:&#x2F;&#x2F;jiangwei5.github.io&#x2F;tags&#x2F;index.html">
 <meta property="og:site_name" content="jiangwei5">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-29T02:43:54.935Z">
+<meta property="og:updated_time" content="2019-11-29T02:44:25.941Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -261,7 +261,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-29 19:36:37'>2019-11-28 16:39</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-29 19:44:11'>2019-11-28 16:39</time>
         
     </div>
     <div class="article-meta">
@@ -358,7 +358,7 @@
         }
     }
 }</code></pre>
-<h2 id="三-插入排序"><a href="#三-插入排序" class="headerlink" title="三.插入排序"></a>三.插入排序</h2><p>插入排序不是通过交换位置而是通过比较找到合适的位置插入元素来达到排序的目的的。大家打扑克牌时，拿到一张牌怎么处理呢，当然是找到一个合适的位置插入啦，比如对7,4,2,3,5这个无序序列进行简单插入排序，首先假设第一个数的位置是正确的，就好比拿到第一张牌无需整理。然后第二张牌，4要插到7前面，把7后移一位，变成 4,7,2,3,5.然后7不动，2插到7前面，7后移一位；3插到4前面，5插到7前面，最后得到最终序列。</p>
+<h2 id="三-插入排序"><a href="#三-插入排序" class="headerlink" title="三.插入排序"></a>三.插入排序</h2><p>插入排序不是通过交换位置而是通过比较找到合适的位置插入元素来达到排序的目的的。大家打扑克牌时，拿到一张牌怎么处理呢，当然是找到一个合适的位置插入啦，比如对7,4,2,3,5这个无序序列进行简单插入排序，首先假设第一个数的位置是正确的，就好比拿到第一张牌无需整理。然后第二张牌，4要插到7前面，把7后移一位，变成 4,7,2,3,5.然后7不动，2插到7前面，7后移一位；3插到4前面，5插到7前面，最后得到最终序列。插入排序的复杂度也为O(N^2).</p>
 <pre><code class="cpp">class InsertionSort
 {
     public:
@@ -376,93 +376,92 @@
         }
     }
 }</code></pre>
-<h2 id="四-快速排序"><a href="#四-快速排序" class="headerlink" title="四.快速排序"></a>四.快速排序</h2><p>快速排序是实践中最快的已知排序算法。该算法之所以特别快，主要由于非常精炼且高度优化的内部循环。像归并排序一样，快速排序也是一种分治的递归算法。<br>它由下面几步组成：<br>0. 如果S中元素个数是0或1，则返回。（递归终止条件）</p>
+<h2 id="四-快速排序"><a href="#四-快速排序" class="headerlink" title="四.快速排序"></a>四.快速排序</h2><p>快速排序是实践中最快的已知排序算法。该算法之所以特别快，主要由于非常精炼且高度优化的内部循环。像归并排序一样，快速排序也是一种分治的递归算法。<br>它由下面几步组成：</p>
 <ol>
-<li><p>在集合S中选取枢纽元元素v、</p>
-</li>
-<li><p>将S-{V}（S中其余的元素）分成两个不想交的集合：S1：小于等于v的部分和S2：大于等于v的部分</p>
-</li>
-<li><p>返回{quicksort（S1），v， quicksort（S2）}。（递归思想）<br>举个例子：对7,4,2,3,5这个无序序列进行快速排序，思路是右指针找比枢纽元小的，左指针找比基准数大的，找到后交换左右指针的数。<br>这里用最右边的5作为枢纽元，最终会把5小的移动到5的左边，比5大的移动到5的右边<br>7，4，2，3，5 首先设置i，j两个指针分别指向两端，i指针先扫描<strong>（思考一下为什么？）</strong>7比5大停止，然后扫描j，3比5小停止。交换i，j所指向数据的位置。<br>3，4，2，7，5 然后指针再扫描，这时i扫描到7停止，j扫描到2停止，此时i，j交错，故不再交换，分割的最后一步是将枢纽元与<strong>i所指向的元素</strong>交换<br>3，4，2，5，7 一次划分后达到了左边比5小，右边比5大的目的。之后对左右子序列递归排序，最终得到有序序列。<br>上面留下来一个问题，为什么要i指针先扫描，首先，这也不是绝对的，这取决于枢纽元的位置，因为在指针相遇时，要交换枢纽元和源于位置的元素。这里选取右边的数作为枢纽元，那么相遇的数要比枢纽元大，所以i指针险以动才能确保可以找到比枢纽元大的数。<br>快速排序是不稳定的，它的平均时间复杂度是<em>O（N logN）<em>，最坏性能是</em>O（N^2）</em>,但是稍加努力可以避免这种最坏情形。</p>
+<li>如果S中元素个数是0或1，则返回。（递归终止条件）</li>
+<li>在集合S中选取枢纽元元素v、</li>
+<li>将S-{V}（S中其余的元素）分成两个不想交的集合：S1：小于等于v的部分和S2：大于等于v的部分</li>
+<li>返回{quicksort（S1），v， quicksort（S2）}。（递归思想）</li>
+</ol>
+<p>举个例子：对7,4,2,3,5这个无序序列进行快速排序，思路是右指针找比枢纽元小的，左指针找比基准数大的，找到后交换左右指针的数。<br>这里用最右边的5作为枢纽元，最终会把5小的移动到5的左边，比5大的移动到5的右边<br>7，4，2，3，5 首先设置i，j两个指针分别指向两端，i指针先扫描<strong>（思考一下为什么？）</strong>7比5大停止，然后扫描j，3比5小停止。交换i，j所指向数据的位置。<br>3，4，2，7，5 然后指针再扫描，这时i扫描到7停止，j扫描到2停止，此时i，j交错，故不再交换，分割的最后一步是将枢纽元与<strong>i所指向的元素</strong>交换<br>3，4，2，5，7 一次划分后达到了左边比5小，右边比5大的目的。之后对左右子序列递归排序，最终得到有序序列。<br>上面留下来一个问题，为什么要i指针先扫描，首先，这也不是绝对的，这取决于枢纽元的位置，因为在指针相遇时，要交换枢纽元和源于位置的元素。这里选取右边的数作为枢纽元，那么相遇的数要比枢纽元大，所以i指针险以动才能确保可以找到比枢纽元大的数。<br>快速排序是不稳定的，它的平均时间复杂度是<em>O（N logN）<em>，最坏性能是</em>O（N^2）</em>,但是稍加努力可以避免这种最坏情形。</p>
 <pre><code class="cpp">class QuickSort 
 {
-  public:
-  void Qsort(vector&lt;int&gt; &amp; arr, int left, int right)
-  {
-      if(left &gt;= right) return;
+    public:
+    void Qsort(vector&lt;int&gt; &amp; arr, int left, int right)
+    {
+        if(left &gt;= right) return;
 
-      int i = left - 1, j = right;
-      int pivot = arr[right];
-      for( ; ; )
-      {
-          while(arr[++i] &lt; pivot){}
-          while(arr[++j]) &lt; pivot{}
-          if(i &lt; j)
-              swap(arr[i], arr[j]);
-          else break;
-      }
-      swap(a[i], a[right]);
+        int i = left - 1, j = right;
+        int pivot = arr[right];
+        for( ; ; )
+        {
+            while(arr[++i] &lt; pivot){}
+            while(arr[++j]) &lt; pivot{}
+            if(i &lt; j)
+                swap(arr[i], arr[j]);
+            else break;
+        }
+        swap(a[i], a[right]);
 
-      QuickSort(arr, left, i - 1);
-      QuickSort(arr, i + 1, right);
-  }
-  void QuickSort(vector&lt;int&gt; &amp; arr)
-  {
-      Qsort(arr, 0, arr.size() - 1);
-  }
+        QuickSort(arr, left, i - 1);
+        QuickSort(arr, i + 1, right);
+    }
+    void QuickSort(vector&lt;int&gt; &amp; arr)
+    {
+        Qsort(arr, 0, arr.size() - 1);
+    }
 }</code></pre>
 <p>对于总是取最右边元素作为枢纽元的办法，可能会产生<em>O（N^2）</em>的最坏性能, 这在数据量比较大的情况下是不愿意看到的，因此，有一种办法是将<code>arr[Left]、arr[Right]、arr[Center]</code>适当排序，即该三元素中的最小者被分在<code>arr[Left]</code>, 而这正是分割阶段应该将它放到的位置。三元素中的最大者被分在arr[Right], 这也是正确的位置，因为它大于枢纽元。因此，我们可以把枢纽元放到<code>arr[Right - 1]</code>并在分割阶段将i 和 j 初始化到<code>left + 1 和 Right - 2.</code> 因为<code>arr[left]</code>比枢纽元小，<strong>所以将它用作j 的警戒标记（不用担心j越界）</strong>，这是另一个好处。因为i会停在那些等于枢纽元的位置，<strong>所以将枢纽元存储在arr[Right - 1]可以提供一个境界标记</strong>。</p>
 <pre><code class="cpp">class QuickSort 
 {
-  public:
-  #define Cutoff (3)
+    public:
+    #define Cutoff (3)
 
-  int Median(vector&lt;int&gt; &amp;arr, int left, int right)
-  {
-      int Center = (Left + Right) / 2;
+    int Median(vector&lt;int&gt; &amp;arr, int left, int right)
+    {
+        int Center = (Left + Right) / 2;
 
-      if(arr[Left] &gt; arr[Center]) )
-          swap(arr[left], arr[Center]);
-      if(arr[Left] &gt; arr[Right])
-          swap(arr[left], arr[Right]);
-      if(arr[Center] &gt; arr[Right])
-          swap(arr[Center], arr[Right]);
+        if(arr[Left] &gt; arr[Center]) )
+            swap(arr[left], arr[Center]);
+        if(arr[Left] &gt; arr[Right])
+            swap(arr[left], arr[Right]);
+        if(arr[Center] &gt; arr[Right])
+            swap(arr[Center], arr[Right]);
 
-      swap(arr[Center], arr[Right - 1]);
-      return arr[Right - 1];
-  }
-  void Qsort(vector&lt;int&gt; &amp; arr, int left, int right)
-  {
-      int i, j;
-      int Pivot;
-      if(left + cutoff &lt;= Right)
-      {
-          Pivot = Median(arr, Left, Right);
-          i = Left;
-          j = Right - 1;
-          for( ; ; )
-          {
-              while(arr[++i] &lt; pivot){}
-              while(arr[--j]) &lt; pivot{}
-              if(i &lt; j)
-                  swap(arr[i], arr[j]);
-              else break;
-          }
-          swap(arr[i], arr[Right - 1]);
+        swap(arr[Center], arr[Right - 1]);
+        return arr[Right - 1];
+    }
+    void Qsort(vector&lt;int&gt; &amp; arr, int left, int right)
+    {
+        int i, j;
+        int Pivot;
+        if(left + cutoff &lt;= Right)
+        {
+            Pivot = Median(arr, Left, Right);
+            i = Left;
+            j = Right - 1;
+            for( ; ; )
+            {
+                while(arr[++i] &lt; pivot){}
+                while(arr[--j]) &lt; pivot{}
+                if(i &lt; j)
+                    swap(arr[i], arr[j]);
+                else break;
+            }
+            swap(arr[i], arr[Right - 1]);
 
-          QuickSort(arr, left, i - 1);
-          QuickSort(arr, i + 1, right);
-      }
-      else                                     
-          InsertionSort(arr, Left, Right - Left + 1);     // 对大小小于3的部分进行插入排序，这里得到一个启示，写前面的函数时，要传入表示vector排序区域的参数
-  }
+            QuickSort(arr, left, i - 1);
+            QuickSort(arr, i + 1, right);
+        }
+        else                                     
+            InsertionSort(arr, Left, Right - Left + 1);     // 对大小小于3的部分进行插入排序，这里得到一个启示，写前面的函数时，要传入表示vector排序区域的参数
+    }
 
-  void quickSort(vector&lt;int&gt; &amp; arr)
-  {
-      Qsort(arr, 0, arr.size() - 1);
-  }
+    void quickSort(vector&lt;int&gt; &amp; arr)
+    {
+        Qsort(arr, 0, arr.size() - 1);
+    }
 }</code></pre>
-</li>
-</ol>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -480,7 +479,7 @@
     <p><span class="copy-title">文章字数:</span><span class="post-count">2k</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-28, 16:39:41</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-29, 19:36:37</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-29, 19:44:11</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/28/paixu20191128/" title="排序算法汇总">http://jiangwei5.github.io/2019/11/28/paixu20191128/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
