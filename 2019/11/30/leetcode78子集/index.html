@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>categories | jiangwei5</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="categories | jiangwei5">
+  <title>leetcode78子集 | jiangwei5</title>
+  <meta name="keywords" content=" 算法 , leetcode , 回溯 ">
+  <meta name="description" content="leetcode78子集 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -275,24 +275,40 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-leetcode78子集" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">categories</h1>
+        <h1 class="article-title">leetcode78子集</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            
+                <a  data-rel="leetcode">leetcode</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color3">算法</a>
+            
+            <a class="color4">leetcode</a>
+            
+            <a class="color3">回溯</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-29 10:43:54'>2019-11-29 09:47</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-30 23:44:35'>2019-11-30 23:11</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:0</span>
+        <span>字数:300</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -311,7 +327,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法1"><span class="toc-text">方法1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法2"><span class="toc-text">方法2</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -327,7 +343,68 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。</p>
+<p>说明：解集不能包含重复的子集。</p>
+<p>示例:</p>
+<pre><code>输入: nums = [1,2,3]
+输出:
+[
+  [3],
+  [1],
+  [2],
+  [1,2,3],
+  [1,3],
+  [2,3],
+  [1,2],
+  []
+]</code></pre><blockquote>
+<p>链接：<a href="https://leetcode-cn.com/problems/subsets" target="_blank" rel="noopener">https://leetcode-cn.com/problems/subsets</a></p>
+</blockquote>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h3><p>和77题组合类似的回溯，每次都把自己放入结果<br>![运行时间]leetcode78子集/运行时间.png</p>
+<pre><code class="cpp">
+class Solution {
+public:
+    void backtrace(vector&lt;int&gt; nums, vector&lt;vector&lt;int&gt;&gt; &amp;res, int i, vector&lt;int&gt;&amp; tmp)
+    {
+        res.push_back(tmp);
+        if(i == nums.size()) return;
+        for(int j = i; j &lt;= nums.size() - 1; j++)
+        {
+            tmp.push_back(nums[j]);
+            backtrace(nums, res, j + 1, tmp);
+            tmp.pop_back();
+        }
+    }
+    vector&lt;vector&lt;int&gt;&gt; subsets(vector&lt;int&gt;&amp; nums) {
+        vector&lt;vector&lt;int&gt;&gt; res;
+        vector&lt;int&gt; tmp;
+        backtrace(nums, res, 0, tmp);
+        return res;
+    }
+};
+
+</code></pre>
+<h3 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h3><p>看到了一条优秀评论<br>![]leetcode78子集/优秀评论.png</p>
+<pre><code class="cpp">class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; subsets(vector&lt;int&gt;&amp; nums) {
+        vector&lt;vector&lt;int&gt;&gt; res;
+        vector&lt;int&gt;tmp;
+        res.push_back(tmp);
+        for(int i = 0; i &lt; nums.size(); i++)
+        {
+            int size = res.size();                  // 注意这里要先保存size哦
+            for(int j = 0; j &lt; size; j++)
+            {
+                tmp = res[j];
+                tmp.push_back(nums[i]);
+                res.push_back(tmp);
+            }
+        }
+        return res;
+    }
+};</code></pre>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
     </div>
@@ -338,6 +415,18 @@
     <a  class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>leetcode78子集</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">300</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-30, 23:11:30</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-30, 23:44:35</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/30/leetcode78%E5%AD%90%E9%9B%86/" title="leetcode78子集">http://jiangwei5.github.io/2019/11/30/leetcode78%E5%AD%90%E9%9B%86/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 
