@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>categories | jiangwei5</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="categories | jiangwei5">
+  <title>leetcode88合并两个有序数组90子集II | jiangwei5</title>
+  <meta name="keywords" content=" 算法 , leetcode ">
+  <meta name="description" content="leetcode88合并两个有序数组90子集II | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -351,24 +351,38 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-leetcode90子集II" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">categories</h1>
+        <h1 class="article-title">leetcode88合并两个有序数组90子集II</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            
+                <a  data-rel="leetcode">leetcode</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color3">算法</a>
+            
+            <a class="color4">leetcode</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-29 10:43:54'>2019-11-29 09:47</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-13 10:30:35'>2019-12-13 10:18</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:0</span>
+        <span>字数:842</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -398,7 +412,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -414,7 +428,107 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。</p>
+<p>说明：解集不能包含重复的子集。</p>
+<p>示例:</p>
+<pre><code>输入: [1,2,2]
+输出:
+[
+  [2],
+  [1],
+  [1,2,2],
+  [2,2],
+  [1,2],
+  []
+]</code></pre><blockquote>
+<p>链接：<a href="https://leetcode-cn.com/problems/subsets-ii" target="_blank" rel="noopener">https://leetcode-cn.com/problems/subsets-ii</a></p>
+</blockquote>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><blockquote>
+<p>下面的解析是评论区引用的，和自己解法相同，具体实现微小差异</p>
+</blockquote>
+<blockquote>
+<p>以下思路基于元素列已经被排序。</p>
+</blockquote>
+<p>1.为什么会出现重复子列？</p>
+<ul>
+<li>该解法生成子列是在之前已经生成的所有子列上依次加上新的元素，生成新的子列。</li>
+<li>如果元素列(nums)中存在重复元素，则当前元素生成新子列的过程会与前面重复元素生成新子列的过程部分重复，则生成的子列也是部分重复的。</li>
+</ul>
+<ol start="2">
+<li>重复子列出现在哪些部分？ 假设元素列(nums)为：[1, 2, 2]，下面进行模拟</li>
+</ol>
+<ul>
+<li>遍历完第一个元素—&gt;[[], [1]]</li>
+<li>遍历完第二个元素—&gt;[[], [1], [2], [1, 2]]</li>
+<li>遍历完第三个元素—&gt;[[], [1], [2], [1, 2], <strong>[2]</strong>, <strong>[1, 2]</strong>, [2, 2], [1, 2, 2]]。<br>加粗部分就是第三个元素遍历以后，产生的重复部分。[ <strong>[2]</strong>, <strong>[1, 2]</strong>]是因为第三个元素2，在与[[], [1]]生成新序列时生成的，可以看到这个过程与第二个元素2生成新序列的过程时一样的。即重复序列就是第三个元素在与[[], [1]]生成新序列时生成的，同时注意到[[], [1]]之后的序列就是第二元素遍历时生成的新序列，而第三个序列与这些新序列不会生成重复序列，同时注意每次生成的新序列的长度是可以被记录的。</li>
+</ul>
+<ol start="3">
+<li>如何避免生成重复序列 在了解重复序列出现的原因和位置以后，就可以去重操作了。</li>
+</ol>
+<ul>
+<li>先进行排序，保证重复元素挨在一起</li>
+<li>记录每次遍历生成的新序列的长度，这里用left表示每次遍历的开始位置，right结束位置，len表示长度</li>
+<li>根据与前面元素是否重复，来决定left的取值，也就是开始遍历的位置<br>上述三个步骤就能有效避免当前元素与之前相同元素遍历过程发生重叠。</li>
+</ul>
+<pre><code class="cpp">/**************************自己写的***************************/
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; subsetsWithDup(vector&lt;int&gt;&amp; nums) {
+        vector&lt;vector&lt;int&gt;&gt; res {{}};
+        if(!nums.size()) return res;
+        sort(nums.begin(), nums.end());
+        int TmpSize = 0;
+        for(int i = 0; i &lt; nums.size(); i++)
+        {
+            if(i == 0 || nums[i] != nums[i - 1])
+            {
+                vector&lt;vector&lt;int&gt;&gt;tmp (res.begin(), res.end());
+                for(auto j : tmp)
+                {
+                    j.push_back(nums[i]);
+                    res.push_back(j);
+                }
+                TmpSize = tmp.size();
+            }
+            else if(nums[i] == nums[i - 1])
+            {
+                vector&lt;vector&lt;int&gt;&gt;tmp (res.end() - TmpSize, res.end());            // 注意这一条，迭代器的用法
+                for(auto j : tmp)
+                {
+                    j.push_back(nums[i]);
+                    res.push_back(j);
+                }
+                TmpSize = tmp.size();
+            }
+        }
+        return res;
+    }
+};
+/***************************评论区的*********************************/
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; subsetsWithDup(vector&lt;int&gt;&amp; nums) {
+        sort(nums.begin(), nums.end());
+        vector&lt;vector&lt;int&gt;&gt; ans;
+        vector&lt;int&gt; v;
+        ans.push_back(v);
+        int right = 1, left = 0, len = 0;
+        for (int i = 0; i &lt; nums.size(); i++) {
+            if (i != 0 &amp;&amp; (nums[i] == nums[i-1])) left = ans.size() - len;
+            else left = 0;
+            right = ans.size();
+            len = right - left;
+            for (int j = left; j &lt; right; ++j) {
+                v = ans[j];
+                v.push_back(nums[i]);
+                ans.push_back(v);
+            }
+        }
+        return ans;
+    }
+};
+</code></pre>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
     </div>
@@ -426,6 +540,39 @@
 </p>
 
 
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>leetcode88合并两个有序数组90子集II</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">842</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-12-13, 10:18:25</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-13, 10:30:35</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/13/leetcode90%E5%AD%90%E9%9B%86II/" title="leetcode88合并两个有序数组90子集II">http://jiangwei5.github.io/2019/12/13/leetcode90%E5%AD%90%E9%9B%86II/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '2e487898fa5e01450877',
+            clientSecret: '6d65e5d06c82aea4a36ace063cd2c704294249f9',
+            repo: 'PingLunShuJu',
+            owner: 'jiangwei5',
+            admin: ['jiangwei5'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
 
 
 
