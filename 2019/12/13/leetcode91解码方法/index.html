@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode84.柱状图中最大的矩形 | jiangwei5</title>
-  <meta name="keywords" content=" 算法 , leetcode , 经典 , 单调栈 ">
-  <meta name="description" content="leetcode84.柱状图中最大的矩形 | jiangwei5">
+  <title>leetcode91解码方法 | jiangwei5</title>
+  <meta name="keywords" content=" 算法 , leetcode , 动态规划 , 边界处理 ">
+  <meta name="description" content="leetcode91解码方法 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -371,9 +371,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode84柱状图中最大的矩形" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode91解码方法" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode84.柱状图中最大的矩形</h1>
+        <h1 class="article-title">leetcode91解码方法</h1>
     
     <div class="article-meta">
         
@@ -381,7 +381,7 @@
         
         <span class="book">
             
-                <a  data-rel="leetcode">leetcode</a>
+                <a  data-rel="leetcide">leetcide</a>
             
         </span>
         
@@ -392,21 +392,21 @@
             
             <a class="color4">leetcode</a>
             
-            <a class="color3">经典</a>
+            <a class="color5">动态规划</a>
             
-            <a class="color4">单调栈</a>
+            <a class="color5">边界处理</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-03 11:39:50'>2019-12-03 09:32</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-13 14:25:57'>2019-12-13 14:24</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:280</span>
+        <span>字数:490</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -436,7 +436,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题目解析"><span class="toc-text">题目解析</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -452,35 +452,75 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。求在该柱状图中，能够勾勒出来的矩形的最大面积。<br><img src="/2019/12/03/leetcode84%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/%E5%9B%BE1.png" alt="图1"><br>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。<br><img src="/2019/12/03/leetcode84%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/%E5%9B%BE2.png" alt="图2"><br>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。</p>
-<p>示例:</p>
-<pre><code>输入: [2,1,5,6,2,3]
-输出: 10</code></pre><blockquote>
-<p>链接：<a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram" target="_blank" rel="noopener">https://leetcode-cn.com/problems/largest-rectangle-in-histogram</a></p>
-</blockquote>
-<h2 id="题目解析"><a href="#题目解析" class="headerlink" title="题目解析"></a>题目解析</h2><blockquote>
-<p><a href="https://blog.csdn.net/Zolewit/article/details/88863970" target="_blank" rel="noopener">https://blog.csdn.net/Zolewit/article/details/88863970</a> </p>
-</blockquote>
-<p>单调栈的解法，单调栈，栈中所代表的元素是单调的，仔细体会下这种结构。<br>贴个代码<br>** 一开始看了解析，以为能写了，结果写了一个多小时没写出来**</p>
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>一条包含字母 A-Z 的消息通过以下方式进行了编码：</p>
+<pre><code>&#39;A&#39; -&gt; 1
+&#39;B&#39; -&gt; 2
+...
+&#39;Z&#39; -&gt; 26</code></pre><p>给定一个只包含数字的非空字符串，请计算解码方法的总数。</p>
+<p>示例 1:</p>
+<pre><code>输入: &quot;12&quot;
+输出: 2</code></pre><p>解释: 它可以解码为 “AB”（1 2）或者 “L”（12）。<br>示例 2:</p>
+<pre><code>输入: &quot;226&quot;
+输出: 3</code></pre><p>解释: 它可以解码为 “BZ” (2 26), “VF” (22 6), 或者 “BBF” (2 2 6) 。</p>
+<p>链接：<a href="https://leetcode-cn.com/problems/decode-ways" target="_blank" rel="noopener">https://leetcode-cn.com/problems/decode-ways</a></p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>要考虑到各种边界条件<br>实际上已第i个字符是否为0来写代码会更加简洁</p>
 <pre><code class="cpp">class Solution {
 public:
-    int largestRectangleArea(vector&lt;int&gt;&amp; heights) {
-        heights.push_back(0);
-        stack&lt;int&gt; stk;
-        int maxArea = 0;
-        for(int i = 0;i&lt;heights.size();i++)
+    int numDecodings(string s) {
+        if(!s.size()) return 0;
+        int size = s.size();
+        int count[size] = {0};
+        if(s[0] == &#39;0&#39;) return 0;
+        count[0] = 1;
+        if(size &gt;= 2)  
         {
-            while(!stk.empty() &amp;&amp; heights[i]&lt;heights[stk.top()])
+            if(((s[0] - &#39;0&#39;) * 10 + s[1] - &#39;0&#39;) &lt;= 26)
             {
-                int top= stk.top();
-                stk.pop();
-                maxArea = max(maxArea,heights[top]*(stk.empty()? i:(i - stk.top() -1)));
+                if(s[1] == &#39;0&#39;) count[1] = 1;
+                else count[1] = 2;
             }
-            stk.push(i);
+            else
+            {
+                if(s[1] == &#39;0&#39;) return 0;
+                else count[1] = 1;
+            }
         }
-        return maxArea;
+        for(int i = 2; i &lt; s.size(); i++)
+        {
+            if(((s[i - 1] - &#39;0&#39;) * 10 + s[i] - &#39;0&#39;) &lt;= 26 &amp;&amp; ((s[i - 1] - &#39;0&#39;) * 10 + s[i] - &#39;0&#39;) &gt; 0)
+            {
+                if( s[i - 1] == &#39;0&#39;) count[i] = count[i - 1];               // 101
+                else if(s[i] == &#39;0&#39;) count[i] = count[i - 2];               // 110
+                else count[i] = count[i - 1] + count[i - 2];                
+            }
+            else 
+            {
+                if(s[i] == &#39;0&#39;) return 0;
+                else count[i] = count[i - 1];
+            }
+        }
+        return count[size - 1];
     }
 };</code></pre>
+<blockquote>
+<p>附上题解中比较好的方法<br>若是s[i] = ‘0’,那么若s[i - 1] = ‘1’ or ‘2’, 则dp[i] = dp[i - 2]; 否则return 0</p>
+</blockquote>
+<pre><code class="cpp">源码
+int numDecodings(string s) {
+    if (s[0] == &#39;0&#39;) return 0;
+    int pre = 1, curr = 1;//dp[-1] = dp[0] = 1
+    for (int i = 1; i &lt; s.size(); i++) {
+        int tmp = curr;
+        if (s[i] == &#39;0&#39;)
+            if (s[i - 1] == &#39;1&#39; || s[i - 1] == &#39;2&#39;) curr = pre;
+            else return 0;
+        else if (s[i - 1] == &#39;1&#39; || (s[i - 1] == &#39;2&#39; &amp;&amp; s[i] &gt;= &#39;1&#39; &amp;&amp; s[i] &lt;= &#39;6&#39;))
+            curr = curr + pre;
+        pre = tmp;
+    }
+    return curr;
+}</code></pre>
+<p>链接：<a href="https://leetcode-cn.com/problems/decode-ways/solution/c-wo-ren-wei-hen-jian-dan-zhi-guan-de-jie-fa-by-pr/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/decode-ways/solution/c-wo-ren-wei-hen-jian-dan-zhi-guan-de-jie-fa-by-pr/</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -494,12 +534,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode84.柱状图中最大的矩形</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">280</span></p>
+    <p><span class="copy-title">文章标题:</span>leetcode91解码方法</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">490</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-12-03, 09:32:07</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-03, 11:39:50</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/03/leetcode84%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/" title="leetcode84.柱状图中最大的矩形">http://jiangwei5.github.io/2019/12/03/leetcode84%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/</a>
+    <p><span class="copy-title">发布时间:</span>2019-12-13, 14:24:50</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-13, 14:25:57</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/13/leetcode91%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95/" title="leetcode91解码方法">http://jiangwei5.github.io/2019/12/13/leetcode91%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
