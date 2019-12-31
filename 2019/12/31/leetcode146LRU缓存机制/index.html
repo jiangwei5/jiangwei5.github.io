@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode92反转链表II | jiangwei5</title>
-  <meta name="keywords" content=" 算法 , leetcode , 链表 ">
-  <meta name="description" content="leetcode92反转链表II | jiangwei5">
+  <title>leetcode146LRU缓存机制 | jiangwei5</title>
+  <meta name="keywords" content=" 设计 ">
+  <meta name="description" content="leetcode146LRU缓存机制 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -427,15 +427,17 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode92反转链表II" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode146LRU缓存机制" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode92反转链表II</h1>
+        <h1 class="article-title">leetcode146LRU缓存机制</h1>
     
     <div class="article-meta">
         
         
         
         <span class="book">
+            
+                <a  data-rel="算法">算法</a>/
             
                 <a  data-rel="leetcode">leetcode</a>
             
@@ -444,23 +446,19 @@
         
         <span class="tag">
             
-            <a class="color3">算法</a>
-            
-            <a class="color4">leetcode</a>
-            
-            <a class="color3">链表</a>
+            <a class="color3">设计</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-16 16:37:47'>2019-12-16 16:37</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-31 14:15:35'>2019-12-31 14:14</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:216</span>
+        <span>字数:458</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -506,45 +504,75 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。</p>
-<p>说明:<br>1 ≤ m ≤ n ≤ 链表长度。</p>
+        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。</p>
+<p>获取数据 get(key) - 如果密钥 (key) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1。<br>写入数据 put(key, value) - 如果密钥不存在，则写入其数据值。当缓存容量达到上限时，它应该在写入新数据之前删除最近最少使用的数据值，从而为新的数据值留出空间。</p>
+<p>进阶:</p>
+<p>你是否可以在 O(1) 时间复杂度内完成这两种操作？</p>
 <p>示例:</p>
-<pre><code>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2, n = 4
-输出: 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL</code></pre><p>链接：<a href="https://leetcode-cn.com/problems/reverse-linked-list-i" target="_blank" rel="noopener">https://leetcode-cn.com/problems/reverse-linked-list-i</a></p>
-<h3 id="题目解析"><a href="#题目解析" class="headerlink" title="题目解析"></a>题目解析</h3><p>从普通链表逆序做类比，插入到开始反转的链表后，以及保存最后一个节点</p>
-<pre><code class="cpp">class Solution {
-public:
-    ListNode* reverseBetween(ListNode* head, int m, int n) {
-        ListNode * H = new ListNode(0);
-        H-&gt;next = head;
-        int count = 0;
-        ListNode * P = H;           // 需要插入到P后
-        ListNode* cur = H;
-        ListNode* end;              // 保留需要翻转的最后的节点
-        while(count &lt;= n)
-        {
-            if(count == m - 1)
-            {
-                P = cur;            // 选定P
-                end = P-&gt;next;
-            }
+<pre><code>LRUCache cache = new LRUCache( 2 /* 缓存容量 */ );
 
-            if(count &gt; m)
-            {
-                ListNode * tmp = cur;
-                cur = cur-&gt;next;
-                count++;
-                tmp-&gt;next = P-&gt;next;
-                P-&gt;next = tmp;
-                end-&gt;next = cur;
-            }
-            else 
-            {
-                cur = cur-&gt;next;
-                count++;
-            }
+cache.put(1, 1);
+cache.put(2, 2);
+cache.get(1);       // 返回  1
+cache.put(3, 3);    // 该操作会使得密钥 2 作废
+cache.get(2);       // 返回 -1 (未找到)
+cache.put(4, 4);    // 该操作会使得密钥 1 作废
+cache.get(1);       // 返回 -1 (未找到)
+cache.get(3);       // 返回  3
+cache.get(4);       // 返回  4
+</code></pre><blockquote>
+<p>链接：<a href="https://leetcode-cn.com/problems/lru-cache" target="_blank" rel="noopener">https://leetcode-cn.com/problems/lru-cache</a></p>
+</blockquote>
+<h3 id="题目解析"><a href="#题目解析" class="headerlink" title="题目解析"></a>题目解析</h3><p>用链表方便增减，map有利于查找。<br>注意，map的删除可以使用迭代器或者键；同样，链表的删除也可</p>
+<pre><code class="cpp">class LRUCache {
+public:
+    int cap;
+    list &lt;pair&lt;int, int&gt;&gt; cache;
+    map&lt;int, list&lt;pair&lt;int, int&gt;&gt;:: iterator&gt; M;
+    LRUCache(int capacity) {
+        this-&gt;cap = capacity;
+    }
+
+    int get(int key) {
+        auto it = M.find(key);
+        if(it == M.end())
+        {
+            return -1;
         }
-        return H-&gt;next;
+        else
+        {
+            pair&lt;int, int&gt; tmp = *M[key];
+            cache.erase(M[key]);
+            M.erase(it);
+            cache.push_front(tmp);
+            M[key] = cache.begin();
+            return tmp.second;
+        }
+    }
+
+    void put(int key, int value) {
+        auto it = M.find(key);
+        if(it != M.end())
+        {
+            pair&lt;int, int&gt; tmp = *M[key];
+            cache.erase(M[key]);
+            tmp.second = value;
+            M.erase(it);
+            cache.push_front(tmp);
+            M[key] = cache.begin();
+        }
+        else
+        {
+            if(cache.size() == cap)
+            {
+                auto era = cache.back();
+                int val = era.first;
+                M.erase(val);
+                cache.pop_back();
+            }
+            cache.push_front(pair&lt;int, int&gt;(key, value));
+            M[key] = cache.begin();
+        }
     }
 };</code></pre>
 
@@ -560,12 +588,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode92反转链表II</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">216</span></p>
+    <p><span class="copy-title">文章标题:</span>leetcode146LRU缓存机制</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">458</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-12-16, 16:37:06</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-16, 16:37:47</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/16/leetcode92%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8II/" title="leetcode92反转链表II">http://jiangwei5.github.io/2019/12/16/leetcode92%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8II/</a>
+    <p><span class="copy-title">发布时间:</span>2019-12-31, 14:14:43</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-31, 14:15:35</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/31/leetcode146LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" title="leetcode146LRU缓存机制">http://jiangwei5.github.io/2019/12/31/leetcode146LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
