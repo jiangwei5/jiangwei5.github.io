@@ -7,11 +7,11 @@
   <meta name="description" content="排序算法汇总 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http:&#x2F;&#x2F;jiangwei5.github.io&#x2F;categories&#x2F;index.html">
+<meta property="og:title" content="tags">
+<meta property="og:url" content="http:&#x2F;&#x2F;jiangwei5.github.io&#x2F;tags&#x2F;index.html">
 <meta property="og:site_name" content="jiangwei5">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-29T02:43:54.935Z">
+<meta property="og:updated_time" content="2019-11-29T02:44:25.941Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -152,7 +152,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="19">
-<input type="hidden" id="yelog_site_word_count" value="10.2k">
+<input type="hidden" id="yelog_site_word_count" value="10.6k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -433,12 +433,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-05 09:34:26'>2019-11-28 16:39</time>
+        创建时间:<time class="date" title='更新时间: 2020-01-01 15:50:01'>2019-11-28 16:39</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:2k</span>
+        <span>字数:2.5k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -468,7 +468,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一-冒泡排序"><span class="toc-text">一.冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-选择排序"><span class="toc-text">二.选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-插入排序"><span class="toc-text">三.插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-快速排序"><span class="toc-text">四.快速排序</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一-冒泡排序"><span class="toc-text">一.冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-选择排序"><span class="toc-text">二.选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-插入排序"><span class="toc-text">三.插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-快速排序"><span class="toc-text">四.快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序"><span class="toc-text">归并排序</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -580,7 +580,7 @@
         for( ; ; )
         {
             while(arr[++i] &lt; pivot){}
-            while(arr[--j]) &gt; pivot{}
+            while(arr[--j] &gt; pivot){}
             if(i &lt; j)
                 swap(arr[i], arr[j]);
             else break;
@@ -646,6 +646,56 @@
         Qsort(arr, 0, arr.size() - 1);
     }
 }</code></pre>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><p>归并排序以O（NlogN）最坏情形运行时间运行，而所使用的比较次数几乎是最优的。它是递归算法一个很好的实例。<br>这个算法中基本的操作是合并两个已排序的表。因为这两个表是已排序的，所以若将输出放到第三个表中，则该算法可以通过对输入数据一趟排序来完成。基本的合并算法是去两个输入数组A和B，一个输出数组C，以及三个计数器Aptr、Bptr、Cptr，他们初始置于对应数组的开始端。A[Aptr]和B[Bptr]中的较小者被拷贝到C中的下一个位置，相关的计数器向前推进一步。当两个输入表有一个用完的时候，则将另一个表中的剩余部分拷贝到C中。</p>
+<p>Merge例程是精妙的。如果对Merge的每个递归调用均局部声明一个临时数组，那么在任艺术课就可能有logN个临时数组处于活动期，这对于小内存机器是致命的。<br>严密测试之处，由于Merge位于Msort的最后一行，因此在任意时刻只需要一个临时数组活动，而且可以使用该临时数组的任一部分。</p>
+<pre><code class="cpp">void MSort(int A[], int TmpArray[], int left, int right)
+{
+    int Center;
+
+    if(left &lt; right)
+    {
+        Center = (left + right) / 2;
+        MSort(A, TmpArray, left, Center);
+        MSort(A, TmpArray, Center + 1; right);
+        Merge(A, TmpArray, left, Center + 1, right);
+    }
+}
+
+void Mergesort(int A[], int N)
+{
+    int * TmpArray = new int[N];
+
+    if(TmpArray != NULL)
+    {
+        MSort(A, TmpArray, 0, N - 1;)
+        delete TmpArray;
+    }
+    else 
+        FataError(&quot; No space for tmp array!!!&quot;);
+}
+
+void Merge(int A[], int TmpArray[], int Lpos, int Rpos, int RightEnd)
+{
+    int i, LeftEnd, NumElements, TmpPos;
+
+    LeftEnd = Rpos - 1;
+    TmpPos = Lpos;
+    NumElements = RightEnd - Lpos + 1;
+
+    while(Lpos &lt;= LeftEnd &amp;&amp; Rpos &lt;= RightEnd)
+        if(A[Lpos] &lt;= A[Rpos])
+            TmpArray[TmpPos++] = A[Lpos++];
+        else
+            TmpArray[TmpPos++] = A[Rpos++];
+
+    while(Lpos &lt;= LeftEnd)
+        TmpArray[TmpPos++] = A[Lpos++];
+    while(Rpos &lt;= RightEnd)
+        TmpArray[TmpPos++] = A[Rpos++];
+
+    for(i = -; i &lt; NumElements; i++, RightEnd--)
+        A[RightEnd] = TmpArray[RightEnd];
+}</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -660,10 +710,10 @@
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>排序算法汇总</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">2k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.5k</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-28, 16:39:41</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-05, 09:34:26</p>
+    <p><span class="copy-title">最后更新:</span>2020-01-01, 15:50:01</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/28/%E6%8E%92%E5%BA%8F/" title="排序算法汇总">http://jiangwei5.github.io/2019/11/28/%E6%8E%92%E5%BA%8F/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
