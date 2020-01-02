@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode141I，142环形链表II | jiangwei5</title>
-  <meta name="keywords" content=" 经典 , 链表 ">
-  <meta name="description" content="leetcode141I，142环形链表II | jiangwei5">
+  <title>leetcode169.多数元素 | jiangwei5</title>
+  <meta name="keywords" content=" 算法 ">
+  <meta name="description" content="leetcode169.多数元素 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -439,9 +439,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode141142环形链表" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode169-多数元素" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode141I，142环形链表II</h1>
+        <h1 class="article-title">leetcode169.多数元素</h1>
     
     <div class="article-meta">
         
@@ -456,21 +456,19 @@
         
         <span class="tag">
             
-            <a class="color3">经典</a>
-            
-            <a class="color3">链表</a>
+            <a class="color3">算法</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-01-01 14:25:48'>2019-12-19 12:38</time>
+        创建时间:<time class="date" title='更新时间: 2020-01-02 11:22:18'>2020-01-02 11:18</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:334</span>
+        <span>字数:487</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -516,35 +514,63 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</p>
-<p>为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。</p>
-<p>说明：不允许修改给定的链表。</p>
-<blockquote>
-<p>链接：<a href="https://leetcode-cn.com/problems/linked-list-cycle-ii" target="_blank" rel="noopener">https://leetcode-cn.com/problems/linked-list-cycle-ii</a></p>
-</blockquote>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>1.快慢指针，若会相遇，则是环形链表；若不相遇（提前遇到NULL）；则不是环形链表<br>2.设相遇节点为B，入口节点为A。<br>则慢指针走了a 长度到达了入口节点A，走了B长度到了相遇节点B，因为快指针走的距离是慢指针的2倍，故从相遇节点再走a+b将回到相遇节点，而从起点走a+b 也会到达相遇节点。所以若设置两个慢指针分别从相遇节点和起点出发，他们最早会在入口节点相遇。</p>
+        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。</p>
+<p>你可以假设数组是非空的，并且给定的数组总是存在多数元素。</p>
+<p>示例 1:</p>
+<pre><code>输入: [3,2,3]
+输出: 3</code></pre><p>示例 2:</p>
+<pre><code>输入: [2,2,1,1,1,2,2]
+输出: 2</code></pre><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/majority-element" target="_blank" rel="noopener">https://leetcode-cn.com/problems/majority-element</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>三种方法：三种方法中第二种执行用时最短，占用内存都一样<br>1、利用哈希数组</p>
 <pre><code class="cpp">class Solution {
 public:
-    ListNode *detectCycle(ListNode *head) {
-        if(!head) return NULL;
-        ListNode * P1 = head;
-        ListNode * P2 = head;
-        while(P1-&gt;next != NULL &amp;&amp; P2-&gt;next != NULL &amp;&amp; P2-&gt;next-&gt;next != NULL)
-        {
-            P1 = P1-&gt;next;
-            P2 = P2-&gt;next-&gt;next;
-            if(P1 == P2) 
-            {
-                ListNode* q = head;
-                while(P1 != q)
-                {
-                    P1 = P1-&gt;next;
-                    q = q-&gt;next;
-                }
-                return P1;
+    int majorityElement(vector&lt;int&gt;&amp; nums) {
+        //建立哈希数组找其中出现次数大于n/2的数
+        unordered_map&lt;int,int&gt; hash;
+        int res=0;
+        int len=nums.size();
+        for(int i=0;i&lt;len;i++){
+            hash[nums[i]]++;
+            if(hash[nums[i]]&gt;len/2)
+                res=nums[i];
+        }
+        return res;
+    }
+};</code></pre>
+<p>2、摩尔投票法</p>
+<pre><code class="cpp">class Solution {
+public:
+    int majorityElement(vector&lt;int&gt;&amp; nums) {
+//摩尔投票法,先假设第一个数过半数并设cnt=1；遍历后面的数如果相同则cnt+1，不同则减一，当cnt为0时则更换新的数字为候选数（成立前提：有出现次数大于n/2的数存在）
+        int res=0,cnt=0;
+        for(int i=0;i&lt;nums.size();i++){
+            if(cnt==0) {
+                res=nums[i];
+                cnt++;
+            }
+            else{
+                res==nums[i]?cnt++:cnt--;
             }
         }
-        return NULL;
+        return res;
+    }
+};</code></pre>
+<p>3、位运算法</p>
+<pre><code class="cpp">class Solution {public:
+    int majorityElement(vector&lt;int&gt;&amp; nums) {
+//位运算法,统计每个数字每一位0，1出现的次数，如果某一位1出现的次数多则该位为1，0同理；//最后按为统计出来的数就是众数
+        int res=0,len = nums.size();
+        for(int i=0;i&lt;32;i++){
+            int ones=0,zero=0;
+            for(int j=0;j &lt; len; j++){
+                if(ones&gt;len/2 ||zero&gt;len/2) break;
+                if((nums[j]&amp;(1&lt;&lt;i)) != 0) ones++;
+                else zero++;   
+            }
+            if(ones &gt; zero)
+                 res = res|(1&lt;&lt;i);
+        }
+        return res;
     }
 };</code></pre>
 
@@ -560,12 +586,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode141I，142环形链表II</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">334</span></p>
+    <p><span class="copy-title">文章标题:</span>leetcode169.多数元素</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">487</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-12-19, 12:38:43</p>
-    <p><span class="copy-title">最后更新:</span>2020-01-01, 14:25:48</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/19/leetcode141142%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/" title="leetcode141I，142环形链表II">http://jiangwei5.github.io/2019/12/19/leetcode141142%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</a>
+    <p><span class="copy-title">发布时间:</span>2020-01-02, 11:18:47</p>
+    <p><span class="copy-title">最后更新:</span>2020-01-02, 11:22:18</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/02/leetcode169-%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0/" title="leetcode169.多数元素">http://jiangwei5.github.io/2020/01/02/leetcode169-%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
