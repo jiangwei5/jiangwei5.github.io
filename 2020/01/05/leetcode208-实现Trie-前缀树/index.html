@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode152.乘积最大子序列 | jiangwei5</title>
-  <meta name="keywords" content=" 算法 ">
-  <meta name="description" content="leetcode152.乘积最大子序列 | jiangwei5">
+  <title>leetcode208.实现Trie-前缀树 | jiangwei5</title>
+  <meta name="keywords" content=" 设计 , 数据结构 ">
+  <meta name="description" content="leetcode208.实现Trie-前缀树 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -483,9 +483,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode152-乘积最大子序列" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode208-实现Trie-前缀树" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode152.乘积最大子序列</h1>
+        <h1 class="article-title">leetcode208.实现Trie-前缀树</h1>
     
     <div class="article-meta">
         
@@ -500,19 +500,21 @@
         
         <span class="tag">
             
-            <a class="color3">算法</a>
+            <a class="color3">设计</a>
+            
+            <a class="color5">数据结构</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-01-02 10:34:03'>2020-01-02 10:27</time>
+        创建时间:<time class="date" title='更新时间: 2020-01-05 15:18:59'>2020-01-05 15:13</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:442</span>
+        <span>字数:366</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -542,7 +544,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#题目解析"><span class="toc-text">题目解析</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -558,53 +560,79 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一个整数数组 nums ，找出一个序列中乘积最大的连续子序列（该序列至少包含一个数）。</p>
-<p>示例 1:</p>
-<pre><code>输入: [2,3,-2,4]
-输出: 6
-解释: 子数组 [2,3] 有最大乘积 6。</code></pre><p>示例 2:</p>
-<pre><code>输入: [-2,0,-1]
-输出: 0
-解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。</code></pre><p>链接：<a href="https://leetcode-cn.com/problems/maximum-product-subarray" target="_blank" rel="noopener">https://leetcode-cn.com/problems/maximum-product-subarray</a></p>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>看的评论席：虽然好像没有非常理解第一种方法<br>总体思路实际上是要保存当前区间 的最大值，和总的最大值比较</p>
-<pre><code class="java">
-class Solution {
-    public int maxProduct(int[] nums) {
-        int max = Integer.MIN_VALUE, imax = 1, imin = 1; //一个保存最大的，一个保存最小的。
-        for(int i=0; i&lt;nums.length; i++){
-            if(nums[i] &lt; 0){ int tmp = imax; imax = imin; imin = tmp;} //如果数组的数是负数，那么会导致最大的变最小的，最小的变最大的。因此交换两个的值。
-            imax = Math.max(imax*nums[i], nums[i]);
-            imin = Math.min(imin*nums[i], nums[i]);
+        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>实现一个 Trie (前缀树)，包含 insert, search, 和 startsWith 这三个操作。</p>
+<p>示例:</p>
+<pre><code>Trie trie = new Trie();
 
-            max = Math.max(max, imax);
+trie.insert(&quot;apple&quot;);
+trie.search(&quot;apple&quot;);   // 返回 true
+trie.search(&quot;app&quot;);     // 返回 false
+trie.startsWith(&quot;app&quot;); // 返回 true
+trie.insert(&quot;app&quot;);   
+trie.search(&quot;app&quot;);     // 返回 true</code></pre><p>说明:</p>
+<ul>
+<li>你可以假设所有的输入都是由小写字母 a-z 构成的。</li>
+<li>保证所有输入均为非空字符串。</li>
+</ul>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/implement-trie-prefix-tree" target="_blank" rel="noopener">https://leetcode-cn.com/problems/implement-trie-prefix-tree</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h3 id="题目解析"><a href="#题目解析" class="headerlink" title="题目解析"></a>题目解析</h3><p>前缀树有多种应用-<br>1.自动补全<br>2.拼写检查<br>3.ip路由（最长前缀匹配）<br>等等</p>
+<pre><code class="cpp">class Trie {
+    Trie *child[26];                    // 指针数组
+    bool isWord;
+public:
+    /** Initialize your data structure here. */
+    Trie() {
+        isWord = false;
+        for(int i = 0; i &lt; 26; i++)
+        {
+            child[i] = NULL;
         }
-        return max;
     }
-}</code></pre>
-<blockquote>
-<p>比较好理解的方法</p>
-</blockquote>
-<p>思路： 求最大值，可以看成求被0拆分的各个子数组的最大值。当一个数组中没有0存在，则分为两种情况：1.负数为偶数个，则整个数组的各个值相乘为最大值；2.负数为奇数个，则从左边开始，乘到最后一个负数停止有一个“最大值”，从右边也有一个“最大值”，比较，得出最大值。</p>
-<pre><code class="java">class Solution {
-    public int maxProduct(int[] nums) {
-        int a=1;  
-        int max=nums[0];
 
-        for(int num:nums){
-            a=a*num;
-            if(max&lt;a)max=a;
-            if(num==0)a=1;
-
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+        Trie *t = this;                         //  这句的具体意思-该对象的地址
+        for(char c: word)
+        {
+            if(!t-&gt;child[c - &#39;a&#39;])
+            {
+                t-&gt;child[c - &#39;a&#39;] = new Trie();
+            }
+            t = t-&gt;child[c - &#39;a&#39;];
         }
-        a=1;
-        for(int i=nums.length-1;i&gt;=0;i--){
-            a=a*nums[i];
-            if(max&lt;a)max=a;
-            if(nums[i]==0)a=1;
-        }  
-        return max;
+        t-&gt;isWord = true;
     }
-}</code></pre>
+
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+        Trie *t = this;
+        for(char c:word)
+        {
+            if(!t-&gt;child[c - &#39;a&#39;])
+            {
+                return false;
+            }
+            t = t-&gt;child[c - &#39;a&#39;];
+        }
+        return t-&gt;isWord;
+    }
+
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+        Trie *t = this;                 /
+        for(char c:prefix)
+        {
+            if(!t-&gt;child[c - &#39;a&#39;])
+            {
+                return false;
+            }
+            t = t-&gt;child[c - &#39;a&#39;];
+        }
+        return true;
+    }
+};
+
+</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -618,12 +646,12 @@ class Solution {
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode152.乘积最大子序列</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">442</span></p>
+    <p><span class="copy-title">文章标题:</span>leetcode208.实现Trie-前缀树</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">366</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-01-02, 10:27:21</p>
-    <p><span class="copy-title">最后更新:</span>2020-01-02, 10:34:03</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/02/leetcode152-%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%88%97/" title="leetcode152.乘积最大子序列">http://jiangwei5.github.io/2020/01/02/leetcode152-%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%88%97/</a>
+    <p><span class="copy-title">发布时间:</span>2020-01-05, 15:13:28</p>
+    <p><span class="copy-title">最后更新:</span>2020-01-05, 15:18:59</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/05/leetcode208-%E5%AE%9E%E7%8E%B0Trie-%E5%89%8D%E7%BC%80%E6%A0%91/" title="leetcode208.实现Trie-前缀树">http://jiangwei5.github.io/2020/01/05/leetcode208-%E5%AE%9E%E7%8E%B0Trie-%E5%89%8D%E7%BC%80%E6%A0%91/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
