@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode91解码方法 | jiangwei5</title>
-  <meta name="keywords" content=" 算法 , 动态规划 , 边界处理 ">
-  <meta name="description" content="leetcode91解码方法 | jiangwei5">
+  <title>leetcode238.除自身以外数组的乘积 | jiangwei5</title>
+  <meta name="keywords" content=" 经典 ">
+  <meta name="description" content="leetcode238.除自身以外数组的乘积 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -575,9 +575,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode91解码方法" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode238-除自身以外数组的乘积" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode91解码方法</h1>
+        <h1 class="article-title">leetcode238.除自身以外数组的乘积</h1>
     
     <div class="article-meta">
         
@@ -592,23 +592,19 @@
         
         <span class="tag">
             
-            <a class="color3">算法</a>
-            
-            <a class="color5">动态规划</a>
-            
-            <a class="color5">边界处理</a>
+            <a class="color3">经典</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-01-01 14:24:46'>2019-12-13 14:24</time>
+        创建时间:<time class="date" title='更新时间: 2020-01-07 14:51:09'>2020-01-07 14:50</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:490</span>
+        <span>字数:368</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -654,75 +650,49 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>一条包含字母 A-Z 的消息通过以下方式进行了编码：</p>
-<pre><code>&#39;A&#39; -&gt; 1
-&#39;B&#39; -&gt; 2
-...
-&#39;Z&#39; -&gt; 26</code></pre><p>给定一个只包含数字的非空字符串，请计算解码方法的总数。</p>
-<p>示例 1:</p>
-<pre><code>输入: &quot;12&quot;
-输出: 2</code></pre><p>解释: 它可以解码为 “AB”（1 2）或者 “L”（12）。<br>示例 2:</p>
-<pre><code>输入: &quot;226&quot;
-输出: 3</code></pre><p>解释: 它可以解码为 “BZ” (2 26), “VF” (22 6), 或者 “BBF” (2 2 6) 。</p>
-<p>链接：<a href="https://leetcode-cn.com/problems/decode-ways" target="_blank" rel="noopener">https://leetcode-cn.com/problems/decode-ways</a></p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>要考虑到各种边界条件<br>实际上已第i个字符是否为0来写代码会更加简洁</p>
-<pre><code class="cpp">class Solution {
-public:
-    int numDecodings(string s) {
-        if(!s.size()) return 0;
-        int size = s.size();
-        int count[size] = {0};
-        if(s[0] == &#39;0&#39;) return 0;
-        count[0] = 1;
-        if(size &gt;= 2)  
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定长度为 n 的整数数组 nums，其中 n &gt; 1，返回输出数组 output ，其中 output[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。</p>
+<p>示例:</p>
+<pre><code>输入: [1,2,3,4]
+输出: [24,12,8,6]
+说明: 请不要使用除法，且在 O(n) 时间复杂度内完成此题。</code></pre><pre><code>进阶：
+你可以在常数空间复杂度内完成这个题目吗？（ 出于对空间复杂度分析的目的，输出数组不被视为额外空间。）</code></pre><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/product-of-array-except-self" target="_blank" rel="noopener">https://leetcode-cn.com/problems/product-of-array-except-self</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>自己写的时候用了两个数组保存累乘的值，实际上用两个数即可保存。代码如下：</p>
+<pre><code class="cpp">public:
+    vector&lt;int&gt; productExceptSelf(vector&lt;int&gt;&amp; nums) {
+        vector&lt;int&gt; lhs(nums.size());
+        vector&lt;int&gt; rhs(nums.size());
+        lhs[0] = 1;
+        lhs[1] = nums[0];
+        rhs[nums.size() - 1] = 1;
+        rhs[nums.size() - 2] = nums[nums.size() - 1];
+        for(int i = 2; i &lt; nums.size(); i++)
         {
-            if(((s[0] - &#39;0&#39;) * 10 + s[1] - &#39;0&#39;) &lt;= 26)
-            {
-                if(s[1] == &#39;0&#39;) count[1] = 1;
-                else count[1] = 2;
-            }
-            else
-            {
-                if(s[1] == &#39;0&#39;) return 0;
-                else count[1] = 1;
-            }
+            lhs[i] = nums[i - 1]* lhs[i - 1];
+            rhs[nums.size() - 1 - i] = nums[nums.size() - 1 - i + 1] * rhs[nums.size() - 1 - i + 1];
         }
-        for(int i = 2; i &lt; s.size(); i++)
+        for(int i = 0; i &lt; nums.size(); i++)
         {
-            if(((s[i - 1] - &#39;0&#39;) * 10 + s[i] - &#39;0&#39;) &lt;= 26 &amp;&amp; ((s[i - 1] - &#39;0&#39;) * 10 + s[i] - &#39;0&#39;) &gt; 0)
-            {
-                if( s[i - 1] == &#39;0&#39;) count[i] = count[i - 1];               // 101
-                else if(s[i] == &#39;0&#39;) count[i] = count[i - 2];               // 110
-                else count[i] = count[i - 1] + count[i - 2];                
-            }
-            else 
-            {
-                if(s[i] == &#39;0&#39;) return 0;
-                else count[i] = count[i - 1];
-            }
+            rhs[i] = lhs[i] * rhs[i];
         }
-        return count[size - 1];
+        return rhs;
     }
 };</code></pre>
-<blockquote>
-<p>附上题解中比较好的方法<br>若是s[i] = ‘0’,那么若s[i - 1] = ‘1’ or ‘2’, 则dp[i] = dp[i - 2]; 否则return 0</p>
-</blockquote>
-<pre><code class="cpp">源码
-int numDecodings(string s) {
-    if (s[0] == &#39;0&#39;) return 0;
-    int pre = 1, curr = 1;//dp[-1] = dp[0] = 1
-    for (int i = 1; i &lt; s.size(); i++) {
-        int tmp = curr;
-        if (s[i] == &#39;0&#39;)
-            if (s[i - 1] == &#39;1&#39; || s[i - 1] == &#39;2&#39;) curr = pre;
-            else return 0;
-        else if (s[i - 1] == &#39;1&#39; || (s[i - 1] == &#39;2&#39; &amp;&amp; s[i] &gt;= &#39;1&#39; &amp;&amp; s[i] &lt;= &#39;6&#39;))
-            curr = curr + pre;
-        pre = tmp;
+<pre><code class="cpp">class Solution {
+public:
+    vector&lt;int&gt; productExceptSelf(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        vector&lt;int&gt; res(n, 1);
+        int lhs = 1, rhs = 1;
+        for(int i = 0; i &lt; n; ++i)
+        {
+            res[i] *= lhs;
+            lhs *= nums[i];
+            res[n - 1 - i] *= rhs;
+            rhs *= nums[n - 1 - i];
+        }
+        return res;
     }
-    return curr;
-}</code></pre>
-<p>链接：<a href="https://leetcode-cn.com/problems/decode-ways/solution/c-wo-ren-wei-hen-jian-dan-zhi-guan-de-jie-fa-by-pr/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/decode-ways/solution/c-wo-ren-wei-hen-jian-dan-zhi-guan-de-jie-fa-by-pr/</a></p>
+};</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -736,12 +706,12 @@ int numDecodings(string s) {
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode91解码方法</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">490</span></p>
+    <p><span class="copy-title">文章标题:</span>leetcode238.除自身以外数组的乘积</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">368</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-12-13, 14:24:50</p>
-    <p><span class="copy-title">最后更新:</span>2020-01-01, 14:24:46</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/13/leetcode91%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95/" title="leetcode91解码方法">http://jiangwei5.github.io/2019/12/13/leetcode91%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95/</a>
+    <p><span class="copy-title">发布时间:</span>2020-01-07, 14:50:40</p>
+    <p><span class="copy-title">最后更新:</span>2020-01-07, 14:51:09</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/07/leetcode238-%E9%99%A4%E8%87%AA%E8%BA%AB%E4%BB%A5%E5%A4%96%E6%95%B0%E7%BB%84%E7%9A%84%E4%B9%98%E7%A7%AF/" title="leetcode238.除自身以外数组的乘积">http://jiangwei5.github.io/2020/01/07/leetcode238-%E9%99%A4%E8%87%AA%E8%BA%AB%E4%BB%A5%E5%A4%96%E6%95%B0%E7%BB%84%E7%9A%84%E4%B9%98%E7%A7%AF/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
