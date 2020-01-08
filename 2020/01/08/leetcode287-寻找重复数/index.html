@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode86.分隔链表 | jiangwei5</title>
-  <meta name="keywords" content=" 链表 , 算法 , leetcode ">
-  <meta name="description" content="leetcode86.分隔链表 | jiangwei5">
+  <title>leetcode287.寻找重复数 | jiangwei5</title>
+  <meta name="keywords" content=" 算法 ">
+  <meta name="description" content="leetcode287.寻找重复数 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="题目描述给定长度为 n 的整数数组 nums，其中 n &amp;gt; 1，返回输出数组 output ，其中 output[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。 示例: 输入: [1,2,3,4] 输出: [24,12,8,6] 说明: 请不要使用除法，且在 O(n) 时间复杂度内完成此题。进阶： 你可以在常数空间复杂度内完成这个题目吗？（ 出于对空间复杂度分析的目的，输">
 <meta name="keywords" content="经典">
@@ -614,9 +614,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode86分隔链表" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode287-寻找重复数" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode86.分隔链表</h1>
+        <h1 class="article-title">leetcode287.寻找重复数</h1>
     
     <div class="article-meta">
         
@@ -631,23 +631,19 @@
         
         <span class="tag">
             
-            <a class="color3">链表</a>
-            
             <a class="color3">算法</a>
-            
-            <a class="color4">leetcode</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-03 11:39:50'>2019-12-03 10:23</time>
+        创建时间:<time class="date" title='更新时间: 2020-01-08 14:41:07'>2020-01-08 14:39</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:317</span>
+        <span>字数:345</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -693,53 +689,37 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。</p>
-<p>你应当保留两个分区中每个节点的初始相对位置。</p>
-<p>示例:</p>
-<p>输入: head = 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;2, x = 3<br>输出: 1-&gt;2-&gt;2-&gt;4-&gt;3-&gt;5</p>
-<p>链接：<a href="https://leetcode-cn.com/problems/partition-list" target="_blank" rel="noopener">https://leetcode-cn.com/problems/partition-list</a></p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>用一个头节点更方便，因为涉及到也许要改变第一个节点。看是否找到了第一个大于target的节点，记flag。移动lastmin。<br><img src="/2019/12/03/leetcode86%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4.png" alt="运行时间"></p>
-<pre><code class="cpp">class Solution {
-public:
-    ListNode* partition(ListNode* head, int x) {
-        ListNode * H = new ListNode(0);
-        H-&gt;next = head;
-        ListNode * lastLittle = H;
-        ListNode * P = H;
-        ListNode * pNext;
-        ListNode * firstBig;
-        int flag = 0;                                   // firstBig has not finded
-        while(P-&gt;next)
-        {
-            if(P-&gt;next-&gt;val &lt; x &amp;&amp; flag == 1)
-            {
-                pNext = P-&gt;next;
-                lastLittle-&gt;next = pNext;
-                lastLittle = pNext;
-                P-&gt;next = pNext-&gt;next;
-                pNext-&gt;next = firstBig;
-            }
-            else if(P-&gt;next-&gt;val &lt; x &amp;&amp; flag == 0)
-            {
-                pNext = P-&gt;next;
-                lastLittle = pNext;
-                P = P-&gt;next;
-            }
-            else if(P-&gt;next-&gt;val &gt;= x &amp;&amp; flag == 0)
-            {
-                firstBig = P-&gt;next;
-                P = P-&gt;next;
-                flag = 1;
-            }
-            else
-            {
-                P = P-&gt;next;
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定一个包含 n + 1 个整数的数组 nums，其数字都在 1 到 n 之间（包括 1 和 n），可知至少存在一个重复的整数。假设只有一个重复的整数，找出这个重复的数。</p>
+<p>示例 1:</p>
+<pre><code>输入: [1,3,4,2,2]
+输出: 2</code></pre><p>示例 2:</p>
+<pre><code>输入: [3,1,3,4,2]
+输出: 3</code></pre><p>说明：</p>
+<p>不能更改原数组（假设数组是只读的）。<br>只能使用额外的 O(1) 的空间。<br>时间复杂度小于 O(n2) 。<br>数组中只有一个重复的数字，但它可能不止重复出现一次。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/find-the-duplicate-number" target="_blank" rel="noopener">https://leetcode-cn.com/problems/find-the-duplicate-number</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><pre><code class="java">class Solution {
+    public int findDuplicate(int[] nums) {
+        /**
+        快慢指针思想, fast 和 slow 是指针, nums[slow] 表示取指针对应的元素
+        注意 nums 数组中的数字都是在 1 到 n 之间的(在数组中进行游走不会越界),
+        因为有重复数字的出现, 所以这个游走必然是成环的, 环的入口就是重复的元素, 
+        即按照寻找链表环入口的思路来做
+        **/
+        int fast = 0, slow = 0;
+        while(true) {
+            fast = nums[nums[fast]];
+            slow = nums[slow];
+            if(slow == fast) {
+                fast = 0;
+                while(nums[slow] != nums[fast]) {
+                    fast = nums[fast];
+                    slow = nums[slow];
+                }
+                return nums[slow];
             }
         }
-        return H-&gt;next;
     }
-};</code></pre>
-<p><strong>当然这道题还可以遍历链表，将链表分为大于target的部分和小于target的部分，代码难度应该更低。</strong></p>
+}</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -753,12 +733,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode86.分隔链表</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">317</span></p>
+    <p><span class="copy-title">文章标题:</span>leetcode287.寻找重复数</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">345</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-12-03, 10:23:23</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-03, 11:39:50</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/03/leetcode86%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/" title="leetcode86.分隔链表">http://jiangwei5.github.io/2019/12/03/leetcode86%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/</a>
+    <p><span class="copy-title">发布时间:</span>2020-01-08, 14:39:06</p>
+    <p><span class="copy-title">最后更新:</span>2020-01-08, 14:41:07</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/08/leetcode287-%E5%AF%BB%E6%89%BE%E9%87%8D%E5%A4%8D%E6%95%B0/" title="leetcode287.寻找重复数">http://jiangwei5.github.io/2020/01/08/leetcode287-%E5%AF%BB%E6%89%BE%E9%87%8D%E5%A4%8D%E6%95%B0/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

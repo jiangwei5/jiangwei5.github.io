@@ -6,12 +6,15 @@
   <meta name="keywords" content=" 经典 , 算法 , 滑动窗口 , leetcode ">
   <meta name="description" content="leetcode76 最小覆盖子串 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http:&#x2F;&#x2F;jiangwei5.github.io&#x2F;tags&#x2F;index.html">
+<meta name="description" content="题目描述给定长度为 n 的整数数组 nums，其中 n &amp;gt; 1，返回输出数组 output ，其中 output[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。 示例: 输入: [1,2,3,4] 输出: [24,12,8,6] 说明: 请不要使用除法，且在 O(n) 时间复杂度内完成此题。进阶： 你可以在常数空间复杂度内完成这个题目吗？（ 出于对空间复杂度分析的目的，输">
+<meta name="keywords" content="经典">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode238.除自身以外数组的乘积">
+<meta property="og:url" content="http:&#x2F;&#x2F;jiangwei5.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;leetcode238-%E9%99%A4%E8%87%AA%E8%BA%AB%E4%BB%A5%E5%A4%96%E6%95%B0%E7%BB%84%E7%9A%84%E4%B9%98%E7%A7%AF&#x2F;index.html">
 <meta property="og:site_name" content="jiangwei5">
+<meta property="og:description" content="题目描述给定长度为 n 的整数数组 nums，其中 n &amp;gt; 1，返回输出数组 output ，其中 output[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。 示例: 输入: [1,2,3,4] 输出: [24,12,8,6] 说明: 请不要使用除法，且在 O(n) 时间复杂度内完成此题。进阶： 你可以在常数空间复杂度内完成这个题目吗？（ 出于对空间复杂度分析的目的，输">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-29T02:44:25.941Z">
+<meta property="og:updated_time" content="2020-01-07T06:51:09.425Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -123,11 +126,11 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(36)</small></div></li>
+    <li><div class="all active">全部文章<small>(40)</small></div></li>
     
         
             
-            <li><div data-rel="leetcode">leetcode<small>(34)</small></div>
+            <li><div data-rel="leetcode">leetcode<small>(38)</small></div>
                 
             </li>
             
@@ -159,8 +162,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="36">
-<input type="hidden" id="yelog_site_word_count" value="16.6k">
+<input type="hidden" id="yelog_site_posts_number" value="40">
+<input type="hidden" id="yelog_site_word_count" value="17.8k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -202,15 +205,11 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color3">经典</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a class="color3">设计</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color3">算法</a>
+        <a class="color3">经典</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -218,11 +217,15 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a class="color3">算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a class="color1">记忆化搜索</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color2">深度优先搜索</a>
+        <a class="color5">数据结构</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -230,7 +233,11 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color5">数据结构</a>
+        <a class="color4">双指针</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">深度优先搜索</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -254,19 +261,19 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color5">二分查找</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a class="color4">单调栈</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color5">边界处理</a>
+        <a class="color5">二分查找</a>
     </li>
     
     <li class="article-tag-list-item">
         <a class="color4">随机数</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">边界处理</a>
     </li>
     
     <div class="clearfix"></div>
@@ -284,14 +291,6 @@
         </a>
         
         <a  class="leetcode "
-           href="/2019/12/19/leetcode141142%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/"
-           data-tag="链表,经典"
-           data-author="" >
-            <span class="post-title" title="leetcode141I，142环形链表II">leetcode141I，142环形链表II</span>
-            <span class="post-date" title="2019-12-19 12:38:43">2019/12/19</span>
-        </a>
-        
-        <a  class="leetcode "
            href="/2019/12/31/leetcode146LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/"
            data-tag="设计"
            data-author="" >
@@ -300,11 +299,11 @@
         </a>
         
         <a  class="leetcode "
-           href="/2020/01/02/leetcode169-%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0/"
-           data-tag="算法"
+           href="/2019/12/19/leetcode141142%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/"
+           data-tag="链表,经典"
            data-author="" >
-            <span class="post-title" title="leetcode169.多数元素">leetcode169.多数元素</span>
-            <span class="post-date" title="2020-01-02 11:18:47">2020/01/02</span>
+            <span class="post-title" title="leetcode141I，142环形链表II">leetcode141I，142环形链表II</span>
+            <span class="post-date" title="2019-12-19 12:38:43">2019/12/19</span>
         </a>
         
         <a  class="leetcode "
@@ -324,19 +323,19 @@
         </a>
         
         <a  class="leetcode "
+           href="/2020/01/02/leetcode169-%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0/"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="leetcode169.多数元素">leetcode169.多数元素</span>
+            <span class="post-date" title="2020-01-02 11:18:47">2020/01/02</span>
+        </a>
+        
+        <a  class="leetcode "
            href="/2020/01/02/leetcode152-%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%88%97/"
            data-tag="算法"
            data-author="" >
             <span class="post-title" title="leetcode152.乘积最大子序列">leetcode152.乘积最大子序列</span>
             <span class="post-date" title="2020-01-02 10:27:21">2020/01/02</span>
-        </a>
-        
-        <a  class="leetcode "
-           href="/2020/01/03/leetcode206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/"
-           data-tag="链表"
-           data-author="" >
-            <span class="post-title" title="leetcode206.反转链表">leetcode206.反转链表</span>
-            <span class="post-date" title="2020-01-03 10:51:36">2020/01/03</span>
         </a>
         
         <a  class="leetcode "
@@ -356,19 +355,19 @@
         </a>
         
         <a  class="leetcode "
-           href="/2020/01/03/leetcode200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F/"
-           data-tag="深度优先搜索"
+           href="/2020/01/03/leetcode206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/"
+           data-tag="链表"
            data-author="" >
-            <span class="post-title" title="leetcode200.岛屿数量">leetcode200.岛屿数量</span>
-            <span class="post-date" title="2020-01-03 10:02:51">2020/01/03</span>
+            <span class="post-title" title="leetcode206.反转链表">leetcode206.反转链表</span>
+            <span class="post-date" title="2020-01-03 10:51:36">2020/01/03</span>
         </a>
         
         <a  class="leetcode "
-           href="/2020/01/06/leetcode221-%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/"
-           data-tag="算法,动态规划"
+           href="/2020/01/05/leetcode208-%E5%AE%9E%E7%8E%B0Trie-%E5%89%8D%E7%BC%80%E6%A0%91/"
+           data-tag="设计,数据结构"
            data-author="" >
-            <span class="post-title" title="leetcode221.最大正方形">leetcode221.最大正方形</span>
-            <span class="post-date" title="2020-01-06 10:20:48">2020/01/06</span>
+            <span class="post-title" title="leetcode208.实现Trie-前缀树">leetcode208.实现Trie-前缀树</span>
+            <span class="post-date" title="2020-01-05 15:13:28">2020/01/05</span>
         </a>
         
         <a  class="leetcode "
@@ -377,6 +376,22 @@
            data-author="" >
             <span class="post-title" title="leetcode215.数组中的第K个最大元素">leetcode215.数组中的第K个最大元素</span>
             <span class="post-date" title="2020-01-05 21:21:45">2020/01/05</span>
+        </a>
+        
+        <a  class="leetcode "
+           href="/2020/01/06/leetcode234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/"
+           data-tag="链表,经典"
+           data-author="" >
+            <span class="post-title" title="leetcode234.回文链表">leetcode234.回文链表</span>
+            <span class="post-date" title="2020-01-06 11:38:56">2020/01/06</span>
+        </a>
+        
+        <a  class="leetcode "
+           href="/2020/01/06/leetcode221-%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/"
+           data-tag="动态规划,算法"
+           data-author="" >
+            <span class="post-title" title="leetcode221.最大正方形">leetcode221.最大正方形</span>
+            <span class="post-date" title="2020-01-06 10:20:48">2020/01/06</span>
         </a>
         
         <a  class="leetcode "
@@ -404,27 +419,43 @@
         </a>
         
         <a  class="leetcode "
-           href="/2020/01/05/leetcode208-%E5%AE%9E%E7%8E%B0Trie-%E5%89%8D%E7%BC%80%E6%A0%91/"
-           data-tag="设计,数据结构"
+           href="/2020/01/08/leetcode279-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/"
+           data-tag="动态规划"
            data-author="" >
-            <span class="post-title" title="leetcode208.实现Trie-前缀树">leetcode208.实现Trie-前缀树</span>
-            <span class="post-date" title="2020-01-05 15:13:28">2020/01/05</span>
+            <span class="post-title" title="leetcode279.完全平方数">leetcode279.完全平方数</span>
+            <span class="post-date" title="2020-01-08 14:44:19">2020/01/08</span>
         </a>
         
         <a  class="leetcode "
-           href="/2020/01/06/leetcode236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/"
-           data-tag="二叉树,递归"
+           href="/2020/01/08/leetcode283-%E7%A7%BB%E5%8A%A8%E9%9B%B6/"
+           data-tag="双指针"
            data-author="" >
-            <span class="post-title" title="leetcode236.二叉树的最近公共祖先">leetcode236.二叉树的最近公共祖先</span>
-            <span class="post-date" title="2020-01-06 16:28:52">2020/01/06</span>
+            <span class="post-title" title="leetcode283.移动零">leetcode283.移动零</span>
+            <span class="post-date" title="2020-01-08 14:41:53">2020/01/08</span>
         </a>
         
         <a  class="leetcode "
-           href="/2020/01/06/leetcode234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/"
-           data-tag="链表,经典"
+           href="/2020/01/08/leetcode287-%E5%AF%BB%E6%89%BE%E9%87%8D%E5%A4%8D%E6%95%B0/"
+           data-tag="算法"
            data-author="" >
-            <span class="post-title" title="leetcode234.回文链表">leetcode234.回文链表</span>
-            <span class="post-date" title="2020-01-06 11:38:56">2020/01/06</span>
+            <span class="post-title" title="leetcode287.寻找重复数">leetcode287.寻找重复数</span>
+            <span class="post-date" title="2020-01-08 14:39:06">2020/01/08</span>
+        </a>
+        
+        <a  class="leetcode "
+           href="/2020/01/08/leetcode300-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/"
+           data-tag="动态规划"
+           data-author="" >
+            <span class="post-title" title="leetcode300.最长上升子序列">leetcode300.最长上升子序列</span>
+            <span class="post-date" title="2020-01-08 14:27:48">2020/01/08</span>
+        </a>
+        
+        <a  class="leetcode "
+           href="/2020/01/03/leetcode200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F/"
+           data-tag="深度优先搜索"
+           data-author="" >
+            <span class="post-title" title="leetcode200.岛屿数量">leetcode200.岛屿数量</span>
+            <span class="post-date" title="2020-01-03 10:02:51">2020/01/03</span>
         </a>
         
         <a  class="leetcode "
@@ -436,6 +467,30 @@
         </a>
         
         <a  class="leetcode "
+           href="/2020/01/06/leetcode236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/"
+           data-tag="二叉树,递归"
+           data-author="" >
+            <span class="post-title" title="leetcode236.二叉树的最近公共祖先">leetcode236.二叉树的最近公共祖先</span>
+            <span class="post-date" title="2020-01-06 16:28:52">2020/01/06</span>
+        </a>
+        
+        <a  class="leetcode "
+           href="/2019/11/29/leetcode72%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/"
+           data-tag="经典,动态规划,算法,leetcode"
+           data-author="" >
+            <span class="post-title" title="leetcode72 编辑距离">leetcode72 编辑距离</span>
+            <span class="post-date" title="2019-11-29 21:02:56">2019/11/29</span>
+        </a>
+        
+        <a  class="leetcode "
+           href="/2019/11/30/leetcode76%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%90%E4%B8%B2/"
+           data-tag="经典,算法,滑动窗口,leetcode"
+           data-author="" >
+            <span class="post-title" title="leetcode76 最小覆盖子串">leetcode76 最小覆盖子串</span>
+            <span class="post-date" title="2019-11-30 13:30:03">2019/11/30</span>
+        </a>
+        
+        <a  class="leetcode "
            href="/2019/11/30/leetcode78%E5%AD%90%E9%9B%86/"
            data-tag="算法,leetcode,回溯"
            data-author="" >
@@ -444,35 +499,19 @@
         </a>
         
         <a  class="leetcode "
-           href="/2019/11/30/leetcode77%E7%BB%84%E5%90%88/"
-           data-tag="经典,算法,leetcode,回溯,排列"
-           data-author="" >
-            <span class="post-title" title="leetcode77 组合">leetcode77 组合</span>
-            <span class="post-date" title="2019-11-30 13:30:03">2019/11/30</span>
-        </a>
-        
-        <a  class="leetcode "
-           href="/2019/11/29/leetcode72%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/"
-           data-tag="经典,算法,动态规划,leetcode"
-           data-author="" >
-            <span class="post-title" title="leetcode72 编辑距离">leetcode72 编辑距离</span>
-            <span class="post-date" title="2019-11-29 21:02:56">2019/11/29</span>
-        </a>
-        
-        <a  class="leetcode "
-           href="/2019/12/02/leetcode33%E4%B8%8E81%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/"
-           data-tag="算法,leetcode,二分查找"
-           data-author="" >
-            <span class="post-title" title="leetcode33与81搜索旋转排序数组">leetcode33与81搜索旋转排序数组</span>
-            <span class="post-date" title="2019-12-02 10:32:36">2019/12/02</span>
-        </a>
-        
-        <a  class="leetcode "
            href="/2019/12/01/leetcode80%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9II/"
            data-tag="算法,leetcode"
            data-author="" >
             <span class="post-title" title="leetcode80删除排序数组中的重复项II">leetcode80删除排序数组中的重复项II</span>
             <span class="post-date" title="2019-12-01 21:54:23">2019/12/01</span>
+        </a>
+        
+        <a  class="leetcode "
+           href="/2019/11/30/leetcode77%E7%BB%84%E5%90%88/"
+           data-tag="经典,算法,leetcode,回溯,排列"
+           data-author="" >
+            <span class="post-title" title="leetcode77 组合">leetcode77 组合</span>
+            <span class="post-date" title="2019-11-30 13:30:03">2019/11/30</span>
         </a>
         
         <a  class="leetcode "
@@ -492,19 +531,19 @@
         </a>
         
         <a  class="leetcode "
-           href="/2019/12/03/leetcode86%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/"
-           data-tag="链表,算法,leetcode"
-           data-author="" >
-            <span class="post-title" title="leetcode86.分隔链表">leetcode86.分隔链表</span>
-            <span class="post-date" title="2019-12-03 10:23:23">2019/12/03</span>
-        </a>
-        
-        <a  class="leetcode "
            href="/2019/12/01/leetcode79%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/"
            data-tag="算法,leetcode,回溯"
            data-author="" >
             <span class="post-title" title="leetcode79 单词搜索">leetcode79 单词搜索</span>
             <span class="post-date" title="2019-12-01 20:46:54">2019/12/01</span>
+        </a>
+        
+        <a  class="leetcode "
+           href="/2019/12/03/leetcode86%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/"
+           data-tag="链表,算法,leetcode"
+           data-author="" >
+            <span class="post-title" title="leetcode86.分隔链表">leetcode86.分隔链表</span>
+            <span class="post-date" title="2019-12-03 10:23:23">2019/12/03</span>
         </a>
         
         <a  class="leetcode "
@@ -516,19 +555,19 @@
         </a>
         
         <a  class="leetcode "
-           href="/2019/11/30/leetcode76%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%90%E4%B8%B2/"
-           data-tag="经典,算法,滑动窗口,leetcode"
+           href="/2019/12/02/leetcode33%E4%B8%8E81%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/"
+           data-tag="算法,leetcode,二分查找"
            data-author="" >
-            <span class="post-title" title="leetcode76 最小覆盖子串">leetcode76 最小覆盖子串</span>
-            <span class="post-date" title="2019-11-30 13:30:03">2019/11/30</span>
+            <span class="post-title" title="leetcode33与81搜索旋转排序数组">leetcode33与81搜索旋转排序数组</span>
+            <span class="post-date" title="2019-12-02 10:32:36">2019/12/02</span>
         </a>
         
         <a  class="leetcode "
-           href="/2019/12/13/leetcode91%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95/"
-           data-tag="算法,动态规划,边界处理"
+           href="/2019/12/16/leetcode92%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8II/"
+           data-tag="链表,算法,leetcode"
            data-author="" >
-            <span class="post-title" title="leetcode91解码方法">leetcode91解码方法</span>
-            <span class="post-date" title="2019-12-13 14:24:50">2019/12/13</span>
+            <span class="post-title" title="leetcode92反转链表II">leetcode92反转链表II</span>
+            <span class="post-date" title="2019-12-16 16:37:06">2019/12/16</span>
         </a>
         
         <a  class="编程知识 "
@@ -540,19 +579,19 @@
         </a>
         
         <a  class="leetcode "
-           href="/2019/12/16/leetcode92%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8II/"
-           data-tag="链表,算法,leetcode"
-           data-author="" >
-            <span class="post-title" title="leetcode92反转链表II">leetcode92反转链表II</span>
-            <span class="post-date" title="2019-12-16 16:37:06">2019/12/16</span>
-        </a>
-        
-        <a  class="leetcode "
            href="/2019/12/13/leetcode90%E5%AD%90%E9%9B%86II/"
            data-tag="算法,leetcode"
            data-author="" >
             <span class="post-title" title="leetcode90子集II">leetcode90子集II</span>
             <span class="post-date" title="2019-12-13 10:18:25">2019/12/13</span>
+        </a>
+        
+        <a  class="leetcode "
+           href="/2019/12/13/leetcode91%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95/"
+           data-tag="动态规划,算法,边界处理"
+           data-author="" >
+            <span class="post-title" title="leetcode91解码方法">leetcode91解码方法</span>
+            <span class="post-date" title="2019-12-13 14:24:50">2019/12/13</span>
         </a>
         
         <a  class="算法笔记 "
@@ -875,7 +914,7 @@ public:
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#链表','#排序','#经典','#设计','#算法','#动态规划','#记忆化搜索','#深度优先搜索','#滑动窗口','#数据结构','#二叉树','#递归','#leetcode','#回溯','#排列','#二分查找','#单调栈','#边界处理','#随机数',],
+            'data': ['#链表','#排序','#设计','#经典','#动态规划','#算法','#记忆化搜索','#数据结构','#滑动窗口','#双指针','#深度优先搜索','#二叉树','#递归','#leetcode','#回溯','#排列','#单调栈','#二分查找','#随机数','#边界处理',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
