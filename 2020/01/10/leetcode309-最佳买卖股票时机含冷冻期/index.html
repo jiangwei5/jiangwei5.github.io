@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode234.回文链表 | jiangwei5</title>
-  <meta name="keywords" content=" 经典 , 链表 ">
-  <meta name="description" content="leetcode234.回文链表 | jiangwei5">
+  <title>leetcode309.最佳买卖股票时机含冷冻期 | jiangwei5</title>
+  <meta name="keywords" content=" 经典 , 动态规划，同一时间也许又多个状态时，可以考虑多个维度的动态规划 ">
+  <meta name="description" content="leetcode309.最佳买卖股票时机含冷冻期 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -635,9 +635,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode234-回文链表" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode309-最佳买卖股票时机含冷冻期" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode234.回文链表</h1>
+        <h1 class="article-title">leetcode309.最佳买卖股票时机含冷冻期</h1>
     
     <div class="article-meta">
         
@@ -654,19 +654,19 @@
             
             <a class="color3">经典</a>
             
-            <a class="color3">链表</a>
+            <a class="color2">动态规划，同一时间也许又多个状态时，可以考虑多个维度的动态规划</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-01-06 11:41:08'>2020-01-06 11:38</time>
+        创建时间:<time class="date" title='更新时间: 2020-01-10 11:00:25'>2020-01-10 10:57</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:211</span>
+        <span>字数:563</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -712,39 +712,38 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>请判断一个链表是否为回文链表。</p>
-<p>示例 1:</p>
-<pre><code>输入: 1-&gt;2
-输出: false</code></pre><p>示例 2:</p>
-<pre><code>输入: 1-&gt;2-&gt;2-&gt;1
-输出: true</code></pre><p>进阶：<br>你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？</p>
-<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/palindrome-linked-list" target="_blank" rel="noopener">https://leetcode-cn.com/problems/palindrome-linked-list</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>结合快慢指针找中点和链表的逆序</p>
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定一个整数数组，其中第 i 个元素代表了第 i 天的股票价格 。​</p>
+<p>设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:</p>
+<p>你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。<br>卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。<br>示例:</p>
+<pre><code>输入: [1,2,3,0,2]
+输出: 3 
+解释: 对应的交易状态为: [买入, 卖出, 冷冻期, 买入, 卖出]</code></pre><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown" target="_blank" rel="noopener">https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>动态规划，同一时间也许又多个状态时，可以考虑多个维度的动态规划</p>
 <pre><code class="cpp">class Solution {
 public:
-    bool isPalindrome(ListNode* head) {
-        if(!head ) return true;
-        ListNode* slow = head, *fast = head ,* prev = NULL;
-        while(fast-&gt;next &amp;&amp; fast-&gt;next-&gt;next)
+    int maxProfit(vector&lt;int&gt;&amp; prices) {
+        if(prices.size() == 0) return 0;
+        // 由于可以无限次交易，所以只定义两个维度，第一个维度是天数
+        // 第二个维度表示是否持有股票，0表示不持有（包括本来就不持有和处在冷冻期），1表示持有，2表示进入冷冻期
+        vector&lt;vector&lt;int&gt;&gt;dp (prices.size(), vector&lt;int&gt;(3, 0));
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+        dp[0][2] = 0;
+        for(int i = 1; i &lt; prices.size(); i++)
         {
-            slow = slow-&gt;next;
-            fast = fast-&gt;next-&gt;next;
+            // 第i天不持有股票的情况有两种          
+            // a.第i - 1天也不持有股票
+            // b.第i - 1天是过渡期（i - 1天卖出）
+            dp[i][0] = max(dp[i - 1][0], dp[i - 1][2]);  
+            // 第i天持有股票有两种情况              // 摒弃了昨天冷冻，今天买入
+            // a.第i - 1天也持有股票
+            // b.第i - 1天不持有股票，在第i天买入
+            dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
+            // 第i天进入冷冻期只有一种情况，第i - 1天持有股票且卖出（今天卖出）
+            dp[i][2] = dp[i - 1][1] + prices[i];
         }
-        slow = slow-&gt;next;         
-        while(slow)
-        {
-            ListNode* tmp = slow;
-            slow = slow-&gt;next;
-            tmp-&gt;next = prev;
-            prev = tmp;
-        }
-        while(prev)
-        {
-            if(prev-&gt;val != head-&gt;val) return false;
-            prev = prev-&gt;next;
-            head = head-&gt;next;
-        }
-        return true;
+        // 最后最大利润为最后一天，不持有股票或者进入冷冻期的情况 （今天卖出）
+        return max(dp[prices.size() - 1][0], dp[prices.size() - 1][2]);
     }
 };</code></pre>
 
@@ -760,12 +759,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode234.回文链表</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">211</span></p>
+    <p><span class="copy-title">文章标题:</span>leetcode309.最佳买卖股票时机含冷冻期</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">563</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-01-06, 11:38:56</p>
-    <p><span class="copy-title">最后更新:</span>2020-01-06, 11:41:08</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/06/leetcode234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/" title="leetcode234.回文链表">http://jiangwei5.github.io/2020/01/06/leetcode234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/</a>
+    <p><span class="copy-title">发布时间:</span>2020-01-10, 10:57:45</p>
+    <p><span class="copy-title">最后更新:</span>2020-01-10, 11:00:25</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/10/leetcode309-%E6%9C%80%E4%BD%B3%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F/" title="leetcode309.最佳买卖股票时机含冷冻期">http://jiangwei5.github.io/2020/01/10/leetcode309-%E6%9C%80%E4%BD%B3%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
