@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode234.回文链表 | jiangwei5</title>
-  <meta name="keywords" content=" 经典 , 链表 ">
-  <meta name="description" content="leetcode234.回文链表 | jiangwei5">
+  <title>leetcode337.打家劫舍III | jiangwei5</title>
+  <meta name="keywords" content=" 动态规划 , 经典 , 二叉树 ">
+  <meta name="description" content="leetcode337.打家劫舍III | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -667,9 +667,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode234-回文链表" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode337-打家劫舍III" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode234.回文链表</h1>
+        <h1 class="article-title">leetcode337.打家劫舍III</h1>
     
     <div class="article-meta">
         
@@ -684,21 +684,23 @@
         
         <span class="tag">
             
+            <a class="color5">动态规划</a>
+            
             <a class="color3">经典</a>
             
-            <a class="color3">链表</a>
+            <a class="color4">二叉树</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-01-06 11:41:08'>2020-01-06 11:38</time>
+        创建时间:<time class="date" title='更新时间: 2020-01-10 17:37:38'>2020-01-10 17:20</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:211</span>
+        <span>字数:532</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -744,39 +746,69 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>请判断一个链表是否为回文链表。</p>
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。</p>
+<p>计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。</p>
 <p>示例 1:</p>
-<pre><code>输入: 1-&gt;2
-输出: false</code></pre><p>示例 2:</p>
-<pre><code>输入: 1-&gt;2-&gt;2-&gt;1
-输出: true</code></pre><p>进阶：<br>你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？</p>
-<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/palindrome-linked-list" target="_blank" rel="noopener">https://leetcode-cn.com/problems/palindrome-linked-list</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>结合快慢指针找中点和链表的逆序</p>
+<pre><code>输入: [3,2,3,null,3,null,1]
+
+     3
+    / \
+   2   3
+    \   \ 
+     3   1</code></pre><p>输出: 7<br>解释: 小偷一晚能够盗取的最高金额 = 3 + 3 + 1 = 7.<br>示例 2:</p>
+<pre><code>输入: [3,4,5,1,3,null,1]
+
+     3
+    / \
+   4   5
+  / \   \ 
+ 1   3   1</code></pre><p>输出: 9<br>解释: 小偷一晚能够盗取的最高金额 = 4 + 5 = 9.</p>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/house-robber-iii" target="_blank" rel="noopener">https://leetcode-cn.com/problems/house-robber-iii</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>方法一 递归</p>
+<pre><code class="cpp">class Solution {
+    unordered_map&lt;TreeNode *, int&gt; sums;        // 不明白为什么这个提高效率 : 答：因为求解res1，和res2 的过程当中属于分别求解，也许会对节点进行两次遍历
+public:
+    int rob(TreeNode* root) {
+        return tryRob(root);
+    }
+    int tryRob(TreeNode* node)
+    {
+        if(!node) return 0;
+        if(sums.count(node)) 
+        {
+            cout&lt;&lt; node-&gt;val&lt;&lt;endl;
+            return sums[node];
+        }
+        int res1 = node-&gt;val;
+        if(node-&gt;left) 
+        {
+            res1 += (tryRob(node-&gt;left-&gt;left) + tryRob(node-&gt;left-&gt;right));
+        }
+        if(node-&gt;right)
+        {
+            res1 += (tryRob(node-&gt;right-&gt;left) +tryRob(node-&gt;right-&gt;right));
+        }
+        int res2 = tryRob(node-&gt;left) + tryRob(node-&gt;right);
+        sums[node] = max(res1, res2);
+        return sums[node];
+    }
+};</code></pre>
+<p>方法二 动态规划<br>用res[0], 和res[1]保存两个状态</p>
 <pre><code class="cpp">class Solution {
 public:
-    bool isPalindrome(ListNode* head) {
-        if(!head ) return true;
-        ListNode* slow = head, *fast = head ,* prev = NULL;
-        while(fast-&gt;next &amp;&amp; fast-&gt;next-&gt;next)
-        {
-            slow = slow-&gt;next;
-            fast = fast-&gt;next-&gt;next;
-        }
-        slow = slow-&gt;next;         
-        while(slow)
-        {
-            ListNode* tmp = slow;
-            slow = slow-&gt;next;
-            tmp-&gt;next = prev;
-            prev = tmp;
-        }
-        while(prev)
-        {
-            if(prev-&gt;val != head-&gt;val) return false;
-            prev = prev-&gt;next;
-            head = head-&gt;next;
-        }
-        return true;
+    int rob(TreeNode* root) {
+        vector&lt;int&gt; res = help(root);
+        return max(res[0], res[1]);
+    }
+    vector&lt;int&gt; help(TreeNode* root)
+    {
+        vector&lt;int&gt; res(2, 0);
+        if(root == NULL) return res;
+        vector&lt;int&gt; left = help(root-&gt;left);
+        vector&lt;int&gt; right = help(root-&gt;right);
+        res[0] = max(left[0], left[1]) + max(right[0], right[1]);
+        res[1] = root-&gt;val + left[0] + right[0];
+        return res;
     }
 };</code></pre>
 
@@ -792,12 +824,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode234.回文链表</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">211</span></p>
+    <p><span class="copy-title">文章标题:</span>leetcode337.打家劫舍III</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">532</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-01-06, 11:38:56</p>
-    <p><span class="copy-title">最后更新:</span>2020-01-06, 11:41:08</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/06/leetcode234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/" title="leetcode234.回文链表">http://jiangwei5.github.io/2020/01/06/leetcode234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/</a>
+    <p><span class="copy-title">发布时间:</span>2020-01-10, 17:20:34</p>
+    <p><span class="copy-title">最后更新:</span>2020-01-10, 17:37:38</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/10/leetcode337-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DIII/" title="leetcode337.打家劫舍III">http://jiangwei5.github.io/2020/01/10/leetcode337-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DIII/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
