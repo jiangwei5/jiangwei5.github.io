@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode406.根据身高重建队列 | jiangwei5</title>
-  <meta name="keywords" content=" 排序 ">
-  <meta name="description" content="leetcode406.根据身高重建队列 | jiangwei5">
+  <title>leetcode134.加油站 | jiangwei5</title>
+  <meta name="keywords" content=" 算法 ">
+  <meta name="description" content="leetcode134.加油站 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -859,9 +859,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode406-根据身高重建队列" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode134-加油站" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode406.根据身高重建队列</h1>
+        <h1 class="article-title">leetcode134.加油站</h1>
     
     <div class="article-meta">
         
@@ -876,19 +876,19 @@
         
         <span class="tag">
             
-            <a class="color3">排序</a>
+            <a class="color3">算法</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-01-14 19:29:05'>2020-01-14 19:28</time>
+        创建时间:<time class="date" title='更新时间: 2020-01-28 21:03:22'>2020-01-28 21:02</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:457</span>
+        <span>字数:618</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -934,56 +934,40 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>假设有打乱顺序的一群人站成一个队列。 每个人由一个整数对(h, k)表示，其中h是这个人的身高，k是排在这个人前面且身高大于或等于h的人数。 编写一个算法来重建这个队列。</p>
-<p>注意：<br>总人数少于1100人。</p>
-<p>示例</p>
-<p>输入:<br>[[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]</p>
-<p>输出:<br>[[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]</p>
-<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/queue-reconstruction-by-height" target="_blank" rel="noopener">https://leetcode-cn.com/problems/queue-reconstruction-by-height</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>根据升高和顺序升序排列</p>
-<pre><code class="cpp">class Solution {
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>在一条环路上有 N 个加油站，其中第 i 个加油站有汽油 gas[i] 升。</p>
+<p>你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1 个加油站需要消耗汽油 cost[i] 升。你从其中的一个加油站出发，开始时油箱为空。</p>
+<p>如果你可以绕环路行驶一周，则返回出发时加油站的编号，否则返回 -1。</p>
+<p>说明: </p>
+<p>如果题目有解，该答案即为唯一答案。<br>输入数组均为非空数组，且长度相同。<br>输入数组中的元素均为非负数。<br>示例 1:</p>
+<p>输入:<br>gas  = [1,2,3,4,5]<br>cost = [3,4,5,1,2]</p>
+<p>输出: 3</p>
+<p>解释:<br>从 3 号加油站(索引为 3 处)出发，可获得 4 升汽油。此时油箱有 = 0 + 4 = 4 升汽油<br>开往 4 号加油站，此时油箱有 4 - 1 + 5 = 8 升汽油<br>开往 0 号加油站，此时油箱有 8 - 2 + 1 = 7 升汽油<br>开往 1 号加油站，此时油箱有 7 - 3 + 2 = 6 升汽油<br>开往 2 号加油站，此时油箱有 6 - 4 + 3 = 5 升汽油<br>开往 3 号加油站，你需要消耗 5 升汽油，正好足够你返回到 3 号加油站。<br>因此，3 可为起始索引。<br>示例 2:</p>
+<p>输入:<br>gas  = [2,3,4]<br>cost = [3,4,3]</p>
+<p>输出: -1</p>
+<p>解释:<br>你不能从 0 号或 1 号加油站出发，因为没有足够的汽油可以让你行驶到下一个加油站。<br>我们从 2 号加油站出发，可以获得 4 升汽油。 此时油箱有 = 0 + 4 = 4 升汽油<br>开往 0 号加油站，此时油箱有 4 - 3 + 2 = 3 升汽油<br>开往 1 号加油站，此时油箱有 3 - 3 + 3 = 3 升汽油<br>你无法返回 2 号加油站，因为返程需要消耗 4 升汽油，但是你的油箱只有 3 升汽油。<br>因此，无论怎样，你都不可能绕环路行驶一周。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/gas-station" target="_blank" rel="noopener">https://leetcode-cn.com/problems/gas-station</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><pre><code class="cpp">class Solution {
 public:
-    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) {
-        sort(people.begin(), people.end());
-        auto ans = vector&lt;vector&lt;int&gt;&gt;(people.size(), vector&lt;int&gt;{-1, -1});
-        for(int i = 0; i &lt; people.size(); i++)
+    int canCompleteCircuit(vector&lt;int&gt;&amp; gas, vector&lt;int&gt;&amp; cost) {
+        if(gas.size() == 0) return -1;
+        //int MAX = INT_MIN;
+        int loc = 0;
+        int sum = 0;
+        int cur = 0;
+        for(int i = 0; i &lt; gas.size(); i++)
         {
-            int count = 0;
-            int j;
-            for( j = 0; j &lt; ans.size(); j++)
+            gas[i] -= cost[i];
+            cur += gas[i];
+            sum += gas[i];
+            if(cur &lt; 0) 
             {
-                if(count == people[i][1] &amp;&amp; ans[j][0] == -1) break; 
-                if(ans[j][0] == -1 || ans[j][0] == people[i][0]) count++;           // 此情形下，说明身高大于等于people[i]数目
+                cur = 0;
+                loc = i + 1;
             }
-            ans[j] = people[i];
         }
-        return ans;
+        return sum &lt; 0? -1: loc;
     }
 };</code></pre>
-<p>按照身高降序，k升序排列，先排个子高的，因为个子高的是看不到个子矮的的，然后在往里插入</p>
-<pre><code class="cpp">class Solution {
-public:
-    static bool compare(vector&lt;int&gt; &amp;a, vector&lt;int&gt;&amp;b)        // 注意这里要static，引用时效率更高
-    {
-        return a[0]&gt;b[0] || (a[0]==b[0] &amp;&amp; a[1]&lt;b[1]);              // 注意 符号大于时是降序
-    }
-
-    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) {
-        //sort(people.begin(), people.end(), [](const auto&amp; a, const auto&amp; b)
-        //{
-        //    return a[0]&gt;b[0] || (a[0]==b[0] &amp;&amp; a[1]&lt;b[1]);
-        //});
-        sort(people.begin(), people.end(), compare);
-        vector&lt;vector&lt;int&gt;&gt; res;
-        for(auto i : people)
-        {
-            res.insert(res.begin() + i[1], i);
-        }
-        return res;
-    }
-};
-
-</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -997,12 +981,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode406.根据身高重建队列</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">457</span></p>
+    <p><span class="copy-title">文章标题:</span>leetcode134.加油站</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">618</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-01-14, 19:28:10</p>
-    <p><span class="copy-title">最后更新:</span>2020-01-14, 19:29:05</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/14/leetcode406-%E6%A0%B9%E6%8D%AE%E8%BA%AB%E9%AB%98%E9%87%8D%E5%BB%BA%E9%98%9F%E5%88%97/" title="leetcode406.根据身高重建队列">http://jiangwei5.github.io/2020/01/14/leetcode406-%E6%A0%B9%E6%8D%AE%E8%BA%AB%E9%AB%98%E9%87%8D%E5%BB%BA%E9%98%9F%E5%88%97/</a>
+    <p><span class="copy-title">发布时间:</span>2020-01-28, 21:02:53</p>
+    <p><span class="copy-title">最后更新:</span>2020-01-28, 21:03:22</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/28/leetcode134-%E5%8A%A0%E6%B2%B9%E7%AB%99/" title="leetcode134.加油站">http://jiangwei5.github.io/2020/01/28/leetcode134-%E5%8A%A0%E6%B2%B9%E7%AB%99/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

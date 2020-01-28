@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode406.根据身高重建队列 | jiangwei5</title>
-  <meta name="keywords" content=" 排序 ">
-  <meta name="description" content="leetcode406.根据身高重建队列 | jiangwei5">
+  <title>leetcode130.被围绕的区域 | jiangwei5</title>
+  <meta name="keywords" content=" 深度优先搜索 ">
+  <meta name="description" content="leetcode130.被围绕的区域 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -859,9 +859,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode406-根据身高重建队列" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode130-被围绕的区域" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode406.根据身高重建队列</h1>
+        <h1 class="article-title">leetcode130.被围绕的区域</h1>
     
     <div class="article-meta">
         
@@ -876,19 +876,19 @@
         
         <span class="tag">
             
-            <a class="color3">排序</a>
+            <a class="color2">深度优先搜索</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-01-14 19:29:05'>2020-01-14 19:28</time>
+        创建时间:<time class="date" title='更新时间: 2020-01-28 21:19:34'>2020-01-28 21:17</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:457</span>
+        <span>字数:478</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -934,56 +934,64 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>假设有打乱顺序的一群人站成一个队列。 每个人由一个整数对(h, k)表示，其中h是这个人的身高，k是排在这个人前面且身高大于或等于h的人数。 编写一个算法来重建这个队列。</p>
-<p>注意：<br>总人数少于1100人。</p>
-<p>示例</p>
-<p>输入:<br>[[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]</p>
-<p>输出:<br>[[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]</p>
-<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/queue-reconstruction-by-height" target="_blank" rel="noopener">https://leetcode-cn.com/problems/queue-reconstruction-by-height</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>根据升高和顺序升序排列</p>
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定一个二维的矩阵，包含 ‘X’ 和 ‘O’（字母 O）。</p>
+<p>找到所有被 ‘X’ 围绕的区域，并将这些区域里所有的 ‘O’ 用 ‘X’ 填充。</p>
+<p>示例:</p>
+<pre><code>X X X X
+X O O X
+X X O X
+X O X X</code></pre><p>运行你的函数后，矩阵变为：</p>
+<pre><code>X X X X
+X X X X
+X X X X
+X O X X</code></pre><p>解释:</p>
+<p>被围绕的区间不会存在于边界上，换句话说，任何边界上的 ‘O’ 都不会被填充为 ‘X’。 任何不在边界上，或不与边界上的 ‘O’ 相连的 ‘O’ 最终都会被填充为 ‘X’。如果两个元素在水平或垂直方向相邻，则称它们是“相连”的。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/surrounded-regions" target="_blank" rel="noopener">https://leetcode-cn.com/problems/surrounded-regions</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>注意点写在注释中</p>
 <pre><code class="cpp">class Solution {
+private:
+    int x[4] = {-1, 0, 1, 0};
+    int y[4] = {0, 1, 0, -1};
 public:
-    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) {
-        sort(people.begin(), people.end());
-        auto ans = vector&lt;vector&lt;int&gt;&gt;(people.size(), vector&lt;int&gt;{-1, -1});
-        for(int i = 0; i &lt; people.size(); i++)
+    void solve(vector&lt;vector&lt;char&gt;&gt;&amp; board) {
+        if(board.size() == 0) return;
+        int m = board.size(), n = board[0].size();
+        int row = 0, col = 0;
+        while(1)
         {
-            int count = 0;
-            int j;
-            for( j = 0; j &lt; ans.size(); j++)
-            {
-                if(count == people[i][1] &amp;&amp; ans[j][0] == -1) break; 
-                if(ans[j][0] == -1 || ans[j][0] == people[i][0]) count++;           // 此情形下，说明身高大于等于people[i]数目
-            }
-            ans[j] = people[i];
+            outside(board, row, col);
+            if(row == 0 &amp;&amp; col&lt; n - 1) col++;
+            else if(col == n - 1 &amp;&amp; row &lt; m - 1) row++;
+            else if(row == m - 1 &amp;&amp; col &gt; 0) col--;
+            else if(col == 0 &amp;&amp; row &gt; 0) row --; 
+            if((!row &amp;&amp; !col) || col == -1 || row == m) break;
         }
-        return ans;
+        for(int i = 0; i &lt; m; i++)
+        {
+            for(int j = 0; j &lt; n; j++)
+            {
+                if(board[i][j] == &#39;1&#39;) board[i][j] = &#39;O&#39;;
+                else if(board[i][j] == &#39;O&#39;)  board[i][j] = &#39;X&#39;;
+            }
+        }
+        return;
+    }
+    void outside(vector&lt;vector&lt;char&gt;&gt;&amp; board, int row, int col)
+    {
+        if(board[row][col] == &#39;X&#39; || board[row][col] == &#39;1&#39;) return;    // 要多写1
+        board[row][col] = &#39;1&#39;;
+        for(int k = 0; k &lt; 4; k++)
+        {
+            int i = row + x[k];
+            int j = col + y[k];
+            if(i &gt;= 0 &amp;&amp; i &lt;= board.size() - 1 &amp;&amp; j &gt;= 0 &amp;&amp; j &lt;= board[0].size() - 1)  // 这里范围不要写错
+            {
+                outside(board, i, j);
+            }
+        }
+        return;
     }
 };</code></pre>
-<p>按照身高降序，k升序排列，先排个子高的，因为个子高的是看不到个子矮的的，然后在往里插入</p>
-<pre><code class="cpp">class Solution {
-public:
-    static bool compare(vector&lt;int&gt; &amp;a, vector&lt;int&gt;&amp;b)        // 注意这里要static，引用时效率更高
-    {
-        return a[0]&gt;b[0] || (a[0]==b[0] &amp;&amp; a[1]&lt;b[1]);              // 注意 符号大于时是降序
-    }
-
-    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) {
-        //sort(people.begin(), people.end(), [](const auto&amp; a, const auto&amp; b)
-        //{
-        //    return a[0]&gt;b[0] || (a[0]==b[0] &amp;&amp; a[1]&lt;b[1]);
-        //});
-        sort(people.begin(), people.end(), compare);
-        vector&lt;vector&lt;int&gt;&gt; res;
-        for(auto i : people)
-        {
-            res.insert(res.begin() + i[1], i);
-        }
-        return res;
-    }
-};
-
-</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -997,12 +1005,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode406.根据身高重建队列</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">457</span></p>
+    <p><span class="copy-title">文章标题:</span>leetcode130.被围绕的区域</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">478</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-01-14, 19:28:10</p>
-    <p><span class="copy-title">最后更新:</span>2020-01-14, 19:29:05</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/14/leetcode406-%E6%A0%B9%E6%8D%AE%E8%BA%AB%E9%AB%98%E9%87%8D%E5%BB%BA%E9%98%9F%E5%88%97/" title="leetcode406.根据身高重建队列">http://jiangwei5.github.io/2020/01/14/leetcode406-%E6%A0%B9%E6%8D%AE%E8%BA%AB%E9%AB%98%E9%87%8D%E5%BB%BA%E9%98%9F%E5%88%97/</a>
+    <p><span class="copy-title">发布时间:</span>2020-01-28, 21:17:12</p>
+    <p><span class="copy-title">最后更新:</span>2020-01-28, 21:19:34</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/28/leetcode130-%E8%A2%AB%E5%9B%B4%E7%BB%95%E7%9A%84%E5%8C%BA%E5%9F%9F/" title="leetcode130.被围绕的区域">http://jiangwei5.github.io/2020/01/28/leetcode130-%E8%A2%AB%E5%9B%B4%E7%BB%95%E7%9A%84%E5%8C%BA%E5%9F%9F/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
