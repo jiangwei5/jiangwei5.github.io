@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode300.最长上升子序列 | jiangwei5</title>
-  <meta name="keywords" content=" 动态规划 ">
-  <meta name="description" content="leetcode300.最长上升子序列 | jiangwei5">
+  <title>字典树的构造及其应用 | jiangwei5</title>
+  <meta name="keywords" content=" 字典树 ">
+  <meta name="description" content="字典树的构造及其应用 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="字典树构造及其应用字典树构造&#x2F;*由于，存在内存开辟与释放问题，本问题中使用了智能指针。全部代码如下：*&#x2F; class Trie { public:     Trie() : root_(std::make_shared&amp;lt;TrieNode&amp;gt;()){}      void insert(string word) {         auto tmp &#x3D; root_;         for">
 <meta name="keywords" content="字典树">
@@ -1030,9 +1030,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode300-最长上升子序列" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-字典树的构造及其应用" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode300.最长上升子序列</h1>
+        <h1 class="article-title">字典树的构造及其应用</h1>
     
     <div class="article-meta">
         
@@ -1040,26 +1040,26 @@
         
         <span class="book">
             
-                <a  data-rel="leetcode">leetcode</a>
+                <a  data-rel="算法笔记">算法笔记</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color5">动态规划</a>
+            <a class="color4">字典树</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-01-08 14:38:25'>2020-01-08 14:27</time>
+        创建时间:<time class="date" title='更新时间: 2020-02-07 22:42:02'>2020-02-07 22:39</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:473</span>
+        <span>字数:238</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1089,7 +1089,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字典树构造及其应用"><span class="toc-text">字典树构造及其应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字典树构造"><span class="toc-text">字典树构造</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用"><span class="toc-text">应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化"><span class="toc-text">优化</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1105,63 +1105,57 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定一个无序的整数数组，找到其中最长上升子序列的长度。</p>
-<p>示例:</p>
-<pre><code>输入: [10,9,2,5,3,7,101,18]
-输出: 4 
-解释: 最长的上升子序列是 [2,3,7,101]，它的长度是 4。</code></pre><p>说明:</p>
-<p>可能会有多种最长上升子序列的组合，你只需要输出对应的长度即可。<br>你算法的时间复杂度应该为 O(n2) 。<br>进阶: 你能将算法的时间复杂度降低到 O(n log n) 吗?</p>
-<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/longest-increasing-subsequence" target="_blank" rel="noopener">https://leetcode-cn.com/problems/longest-increasing-subsequence</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>O(n2)不难想到如下</p>
-<pre><code>class Solution {
+        <h2 id="字典树构造及其应用"><a href="#字典树构造及其应用" class="headerlink" title="字典树构造及其应用"></a>字典树构造及其应用</h2><h3 id="字典树构造"><a href="#字典树构造" class="headerlink" title="字典树构造"></a>字典树构造</h3><pre><code class="cpp">/*由于，存在内存开辟与释放问题，本问题中使用了智能指针。全部代码如下：*/
+class Trie {
 public:
-    int lengthOfLIS(vector&lt;int&gt;&amp; nums) {
-        if(!nums.size() ) return 0;
-        int res = 1;
-        vector &lt;int&gt; dp(nums.size(), 1);
-        for(int i = 1; i &lt; nums.size(); i++)
+    Trie() : root_(std::make_shared&lt;TrieNode&gt;()){}
+
+    void insert(string word) {
+        auto tmp = root_;
+        for(char c : word)
         {
-            for(int j = 0; j &lt; i; j++)
+            if(tmp-&gt;children_[c - &#39;a&#39;] == NULL)
             {
-                if(nums[j] &lt; nums[i])
-                {
-                    dp[i] = max(dp[j] + 1, dp[i]);
-                }
+                tmp-&gt;children_[c - &#39;a&#39;] = std::make_shared&lt;TrieNode&gt;();
             }
-            if(dp[i] &gt; res) res = dp[i];
+            tmp = tmp-&gt;children_[c - &#39;a&#39;];
         }
-        return res;
+        tmp-&gt;istrue = true;
     }
-};</code></pre><p>O（NlogN）解法</p>
-<pre><code class="java">class Solution {
-    public int lengthOfLIS(int[] nums) {
-        /**
-        dp[i]: 所有长度为i+1的递增子序列中, 最小的那个序列尾数.
-        由定义知dp数组必然是一个递增数组, 可以用 maxL 来表示最长递增子序列的长度. 
-        对数组进行迭代, 依次判断每个数num将其插入dp数组相应的位置:
-        1. num &gt; dp[maxL], 表示num比所有已知递增序列的尾数都大, 将num添加入dp
-           数组尾部, 并将最长递增序列长度maxL加1
-        2. dp[i-1] &lt; num &lt;= dp[i], 只更新相应的dp[i]
-        **/
-        int maxL = 0;
-        int[] dp = new int[nums.length];
-        for(int num : nums) {
-            // 二分法查找, 也可以调用库函数如binary_search
-            int lo = 0, hi = maxL;
-            while(lo &lt; hi) {
-                int mid = lo+(hi-lo)/2;
-                if(dp[mid] &lt; num)
-                    lo = mid+1;
-                else
-                    hi = mid;
-            }
-            dp[lo] = num;
-            if(lo == maxL)
-                maxL++;
+
+    bool search(string word) {
+        auto tmp = root_;
+        for (char c: word)
+        {
+            if(tmp-&gt;children_[c - &#39;a&#39;] == NULL) return false;
+            tmp = tmp-&gt;children_[c - &#39;a&#39;];
         }
-        return maxL;
+        return tmp-&gt;istrue;
     }
-}</code></pre>
+
+    bool startsWith(string prefix) {
+        auto tmp = root_;
+        for (char c: prefix)
+        {
+            if(tmp-&gt;children_[c - &#39;a&#39;] == NULL) return false;
+            tmp = tmp-&gt;children_[c - &#39;a&#39;];
+        }
+        return true;
+    }
+private:
+    struct TrieNode{
+        TrieNode():istrue(false), children_(26, NULL){}
+        bool istrue;
+        vector&lt;std::shared_ptr&lt;TrieNode&gt;&gt; children_;
+    };
+    std::shared_ptr&lt;TrieNode&gt; root_;
+};</code></pre>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ul>
+<li>自动补全</li>
+<li>拼写检查</li>
+<li>ip路由（最长前缀匹配）</li>
+<li>T9（九宫格打字预测）<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3>用哈希表来存储子节点指针，键值为单个字母</li>
+</ul>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -1175,12 +1169,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode300.最长上升子序列</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">473</span></p>
+    <p><span class="copy-title">文章标题:</span>字典树的构造及其应用</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">238</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-01-08, 14:27:48</p>
-    <p><span class="copy-title">最后更新:</span>2020-01-08, 14:38:25</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/08/leetcode300-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/" title="leetcode300.最长上升子序列">http://jiangwei5.github.io/2020/01/08/leetcode300-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/</a>
+    <p><span class="copy-title">发布时间:</span>2020-02-07, 22:39:26</p>
+    <p><span class="copy-title">最后更新:</span>2020-02-07, 22:42:02</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/02/07/%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E6%9E%84%E9%80%A0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" title="字典树的构造及其应用">http://jiangwei5.github.io/2020/02/07/%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E6%9E%84%E9%80%A0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
