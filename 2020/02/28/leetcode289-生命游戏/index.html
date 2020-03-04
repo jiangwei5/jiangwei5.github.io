@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode189.旋转数组 | jiangwei5</title>
-  <meta name="keywords" content=" 算法 ">
-  <meta name="description" content="leetcode189.旋转数组 | jiangwei5">
+  <title>leetcode289.生命游戏 | jiangwei5</title>
+  <meta name="keywords" content=" 位运算 ">
+  <meta name="description" content="leetcode289.生命游戏 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -1123,9 +1123,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode189-旋转数组" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode289-生命游戏" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode189.旋转数组</h1>
+        <h1 class="article-title">leetcode289.生命游戏</h1>
     
     <div class="article-meta">
         
@@ -1140,19 +1140,19 @@
         
         <span class="tag">
             
-            <a class="color3">算法</a>
+            <a class="color4">位运算</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-02-04 18:51:14'>2020-02-04 18:49</time>
+        创建时间:<time class="date" title='更新时间: 2020-03-04 13:28:36'>2020-02-28 14:34</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:287</span>
+        <span>字数:851</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1182,7 +1182,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1198,44 +1198,66 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。</p>
-<p>示例 1:</p>
-<pre><code>输入: [1,2,3,4,5,6,7] 和 k = 3
-输出: [5,6,7,1,2,3,4]
-解释:
-向右旋转 1 步: [7,1,2,3,4,5,6]
-向右旋转 2 步: [6,7,1,2,3,4,5]
-向右旋转 3 步: [5,6,7,1,2,3,4]</code></pre><p>示例 2:</p>
-<pre><code>输入: [-1,-100,3,99] 和 k = 2
-输出: [3,99,-1,-100]
-解释: 
-向右旋转 1 步: [99,-1,-100,3]
-向右旋转 2 步: [3,99,-1,-100]</code></pre><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/rotate-array" target="_blank" rel="noopener">https://leetcode-cn.com/problems/rotate-array</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>方法1：k 次移动</p>
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>根据百度百科，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>
+<p>给定一个包含 m × n 个格子的面板，每一个格子都可以看成是一个细胞。每个细胞具有一个初始状态 live（1）即为活细胞， 或 dead（0）即为死细胞。每个细胞与其八个相邻位置（水平，垂直，对角线）的细胞都遵循以下四条生存定律：</p>
+<p>如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；<br>如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；<br>如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；<br>如果死细胞周围正好有三个活细胞，则该位置死细胞复活；<br>根据当前状态，写一个函数来计算面板上细胞的下一个（一次更新后的）状态。下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的，其中细胞的出生和死亡是同时发生的。</p>
+<p>示例:</p>
+<pre><code class="cpp">输入: 
+[
+  [0,1,0],
+  [0,0,1],
+  [1,1,1],
+  [0,0,0]
+]
+输出: 
+[
+  [0,0,0],
+  [1,0,1],
+  [0,1,1],
+  [0,1,0]
+]</code></pre>
+<p>进阶:</p>
+<p>你可以使用原地算法解决本题吗？请注意，面板上所有格子需要同时被更新：你不能先更新某些格子，然后使用它们的更新后的值再更新其他格子。<br>本题中，我们使用二维数组来表示面板。原则上，面板是无限的，但当活细胞侵占了面板边界时会造成问题。你将如何解决这些问题？</p>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/game-of-life" target="_blank" rel="noopener">https://leetcode-cn.com/problems/game-of-life</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>利用一个 two bits 的状态机来记录细胞状态, 第一位表示<br>下一状态, 第二位表示当前状态:<br>00: dead (next state) &lt;- dead (current state)<br>01: dead (next state) &lt;- live (current state)<br>10: live (next state) &lt;- dead (current state)<br>11: live (next state) &lt;- live (current state)<br>初始情况对应就是 00 和 01 (默认下一状态是 dead state)统计每个位置周围的 live 细胞数决定高位置 1 (live)还是 0 (dead), 最后右移一位即为最终状态, 注意不需要考虑 01以及 00 的情况, 因为已经默认下一状态为 dead.</p>
 <pre><code class="cpp">class Solution {
 public:
-    void rotate(vector&lt;int&gt;&amp; nums, int k) {
-        int n = nums.size();
-        k %= n;
-        for(int i = 0; i &lt; k; i++)
+    void gameOfLife(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        if(board.size() &lt; 1) return;
+        for(int i = 0; i &lt; board.size(); ++i)
         {
-            int temp = nums[n - 1];
-            for(int j = n - 1; j &gt; 0; j--) nums[j] = nums[j - 1];
-            nums[0] = temp;
+            for(int j = 0; j &lt; board[0].size(); ++j)
+            {
+                int lives = countLives(board, i, j);
+                if((board[i][j] &amp; 1) == 1)
+                {
+                    if(lives &gt;= 2 &amp;&amp; lives &lt;= 3) board[i][j] = 3;  // 活变活
+                }
+                else if(lives == 3) board[i][j] = 2;  // 死变活
+            }
+        }
+        for(int i = 0; i &lt; board.size(); ++i)
+        {
+            for(int j = 0; j &lt; board[0].size(); ++j)
+            {
+                board[i][j] &gt;&gt;= 1;
+            }
         }
     }
-};</code></pre>
-<p>方法2： 3次翻转</p>
-<pre><code class="cpp">class Solution {
-public:
-    void rotate(vector&lt;int&gt;&amp; nums, int k) {
-        int n = nums.size();
-        k %= n;
-        reverse(nums.begin(), nums.begin() + nums.size() - k);
-        reverse(nums.begin() + nums.size() - k, nums.end());
-        reverse(nums.begin(), nums.end());
+    int countLives(vector&lt;vector&lt;int&gt;&gt;&amp; board, int i, int j)
+    {
+        int count = 0; 
+        vector&lt;vector&lt;int&gt;&gt; dirs= {{1, 0},{-1, 0},{0, 1},{0, -1},{1, 1},{1, -1},{-1, 1},{-1, -1}};
+        for(auto k : dirs)
+        {
+            int x = i + k[0];
+            int y = j + k[1];
+            if( x &lt; 0 || x &gt; board.size() - 1 || y &lt; 0 || y &gt; board[0].size() - 1) continue;
+            count += (board[x][y] &amp; 1);
+        }
+        return count;
     }
-}; </code></pre>
+};</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -1249,12 +1271,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode189.旋转数组</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">287</span></p>
+    <p><span class="copy-title">文章标题:</span>leetcode289.生命游戏</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">851</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-02-04, 18:49:30</p>
-    <p><span class="copy-title">最后更新:</span>2020-02-04, 18:51:14</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/02/04/leetcode189-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/" title="leetcode189.旋转数组">http://jiangwei5.github.io/2020/02/04/leetcode189-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/</a>
+    <p><span class="copy-title">发布时间:</span>2020-02-28, 14:34:11</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-04, 13:28:36</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/02/28/leetcode289-%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/" title="leetcode289.生命游戏">http://jiangwei5.github.io/2020/02/28/leetcode289-%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
