@@ -7,11 +7,11 @@
   <meta name="description" content="字典树的构造及其应用 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http:&#x2F;&#x2F;jiangwei5.github.io&#x2F;categories&#x2F;index.html">
+<meta property="og:title" content="tags">
+<meta property="og:url" content="http:&#x2F;&#x2F;jiangwei5.github.io&#x2F;tags&#x2F;index.html">
 <meta property="og:site_name" content="jiangwei5">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-29T02:43:54.935Z">
+<meta property="og:updated_time" content="2019-11-29T02:44:25.941Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -160,7 +160,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="97">
-<input type="hidden" id="yelog_site_word_count" value="40k">
+<input type="hidden" id="yelog_site_word_count" value="40.1k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -1147,12 +1147,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-02-07 22:44:47'>2020-02-07 22:39</time>
+        创建时间:<time class="date" title='更新时间: 2020-03-12 21:22:54'>2020-02-07 22:39</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:238</span>
+        <span>字数:364</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1250,7 +1250,51 @@ private:
 <li>T9（九宫格打字预测）</li>
 </ul>
 <h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>用哈希表来存储子节点指针，键值为单个字母</p>
+<pre><code>class Trie{
+public:
+    Trie():root_(std::make_shared&lt;TrieNode&gt;()){}
 
+    void insert(string word){
+        auto tmp = root_;
+        for(char c:word)
+        {
+            if(tmp-&gt;children_.count[c] == 0)
+            {
+                tmp-&gt;children_[c] = std::make_shared&lt;TrieNode&gt;();
+            }
+            tmp = tmp-&gt;children_[c];
+        }
+        tmp-&gt;istrue_ = true;
+    } 
+
+    bool search(string word){
+        auto tmp = root_;
+        for(char c : word)
+        {
+            if(tmp-&gt;children_.count[c] == 0) return false;
+            tmp = tmp-&gt;children_[c];
+        }
+        return tmp-&gt;istrue_;
+    }
+    bool startWith(string word){
+        auto tmp = root_;
+        for(char c : word)
+        {
+            if(tmp-&gt;children_.count[c] == 0) return false;
+            tmp = tmp-&gt;children_[c];
+        }
+        return true;
+    }
+
+
+private:
+    struct TrieNode{
+        bool istrue_;
+        unordered_map&lt;char, str::shared_ptr&lt;TrieNode&gt;&gt; children_;
+        TrieNode():istrue_(false){}
+    }
+    std::shared_ptr&lt;TrieNode&gt;root_;
+}</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
     </div>
@@ -1264,10 +1308,10 @@ private:
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>字典树的构造及其应用</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">238</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">364</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
     <p><span class="copy-title">发布时间:</span>2020-02-07, 22:39:26</p>
-    <p><span class="copy-title">最后更新:</span>2020-02-07, 22:44:47</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-12, 21:22:54</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/02/07/%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E6%9E%84%E9%80%A0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" title="字典树的构造及其应用">http://jiangwei5.github.io/2020/02/07/%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E6%9E%84%E9%80%A0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
