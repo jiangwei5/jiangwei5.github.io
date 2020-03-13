@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode236.二叉树的最近公共祖先 | jiangwei5</title>
-  <meta name="keywords" content=" 二叉树 , 递归 ">
-  <meta name="description" content="leetcode236.二叉树的最近公共祖先 | jiangwei5">
+  <title>笔试题01-16年字节跳动后端开发 | jiangwei5</title>
+  <meta name="keywords" content=" 位运算 ">
+  <meta name="description" content="笔试题01-16年字节跳动后端开发 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -1131,9 +1131,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode236-二叉树的最近公共祖先" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-笔试题01-16年字节跳动后端开发" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode236.二叉树的最近公共祖先</h1>
+        <h1 class="article-title">笔试题01-16年字节跳动后端开发</h1>
     
     <div class="article-meta">
         
@@ -1148,21 +1148,19 @@
         
         <span class="tag">
             
-            <a class="color4">二叉树</a>
-            
-            <a class="color3">递归</a>
+            <a class="color4">位运算</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-01-06 16:29:20'>2020-01-06 16:28</time>
+        创建时间:<time class="date" title='更新时间: 2020-03-13 12:10:16'>2020-03-13 12:09</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:377</span>
+        <span>字数:701</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1208,36 +1206,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。</p>
-<p>百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”</p>
-<p>例如，给定如下二叉树:  root = [3,5,1,6,2,0,8,null,null,7,4]<br>示例 1:</p>
-<pre><code>输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
-输出: 3
-解释: 节点 5 和节点 1 的最近公共祖先是节点 3。</code></pre><p>示例 2:</p>
-<pre><code>输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
-输出: 5
-解释: 节点 5 和节点 4 的最近公共祖先是节点 5。因为根据定义最近公共祖先节点可以为节点本身</code></pre><p>。</p>
-<p>说明:</p>
-<ul>
-<li>所有节点的值都是唯一的。</li>
-<li>p、q 为不同节点且均存在于给定的二叉树中。<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2></li>
-</ul>
-<pre><code class="cpp">class Solution {
-public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(root == NULL) return root;
-        if(root == p || root == q) return root;
-        TreeNode* left = lowestCommonAncestor(root-&gt;left, p, q);
-        TreeNode* right = lowestCommonAncestor(root-&gt;right, p, q);
-        if(left != NULL&amp;&amp; right != NULL) return root;   // 当两个都不为NULL时，找到，直接返回。
-        if(left != NULL) return left;                           //
-这个是关键，只是返回上一层，使判断正确，表明已经找到，一直返回直到right!= NULL
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定 x, k ，求满足 x + y = x | y 的第 k 小的正整数 y 。 | 是二进制的或(or)运算，例如 3 | 5 = 7。比如当 x=5，k=1时返回 2，因为5+1=6 不等于 5|1=5，而 5+2=7 等于 5 | 2 = 7。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>—–解法说明——<br>x+y=x|y<br>这里可以推出一个结论，x&amp;y=0。也就是说，在二进制上看，x取1的地方，y必定不能取1。从最低位考虑，若x与y在某一位上同时取1，则x+y在该位上为0，x|y在该位上为1，前面说这是最低一位x y同时取1，也就是说没有更低位加法的进位，所以这里两个结果不相等，出现了矛盾。<br>例子：<br>x = 001010<br>y = 110110<br>x + y =  1000000<br>x | y = 111110<br>偏差产生的原因是倒数第二位，x+y=0 x|y=1 且倒数第一位加法没有进位<br>结论：x在二进制取1的位上，y不能做出改变，只能取0<br>—-方法—-<br>有了上述结论，可以进一步推出只要在x取0的地方，y可以做出改变<br>例如<br>x = 10010010011<br>y = 00000000(0)00   k = 0<br>y = 00000000(1)00   k = 1<br>y = 0000000(1)(0)00 k = 2<br>y = 0000000(1)(1)00 k = 3<br>y = 00000(1)0(0)(0)00 k = 4<br>y = 00000(1)0(0)(1)00 k = 5<br>…<br>注意观察括号里的数，为x取0的比特位，而如果把括号里的数连起来看，正好等于k。<br>得出结论，把k表示成二进制数，填入x取0的比特位，x取1的比特位保持为0，得到y。<br>—代码说明—<br>思路有了，接着就是代码，显然用位操作是最合适的方式。<br>循环的思想是每次取得k的最低一位，填入到低位开始，x中比特位为0的位置上。<br>所以用while来判断k是否大于0，若是，说明k还未完全填完<br>循环体内，需要找到x当前可以填的位置，我们用bitNum来从右往左扫描x的每一位</p>
+<blockquote>
+<p>(x &amp; bitNum) == 0 说明x该位为0,可以把k的当前最后一位填入，用 (k &amp; 1) 取出最后一位，用 ans += (bitNum * (k &amp; 1)) 把k的最后一位填入到当前bitNum指向的位置。<br>填完后，k右移一位，去掉已经被填过的最后一位，bitNum也向左走一位，避免重复填入x的某个位置。<br>若x的某个位置为1，则跳过该位置，向左走一位并观察是否可以填入。<br>两次bitNum向左走一位，合并成一句 bitNum &lt;&lt;= 1;</p>
+</blockquote>
+<pre><code class="cpp">#include &lt;iostream&gt;
 
+using namespace std;
 
-        if(right != NULL) return right;
-        return NULL;                                                        // 两个都为NULL
+int main()
+{
+    long long x, k;
+    cin&gt;&gt;x&gt;&gt;k;
+    long long bitNum = 1;
+    long long ans = 0;
+    while(k)
+    {
+        if((x &amp; bitNum) == 0)
+        {
+            ans += (bitNum * (k &amp; 1));
+            k &gt;&gt;= 1;
+        }
+        bitNum &lt;&lt;= 1;
     }
-};</code></pre>
+    cout&lt;&lt;ans&lt;&lt;endl;
+    return 0;
+}</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -1251,12 +1246,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode236.二叉树的最近公共祖先</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">377</span></p>
+    <p><span class="copy-title">文章标题:</span>笔试题01-16年字节跳动后端开发</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">701</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-01-06, 16:28:52</p>
-    <p><span class="copy-title">最后更新:</span>2020-01-06, 16:29:20</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/06/leetcode236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/" title="leetcode236.二叉树的最近公共祖先">http://jiangwei5.github.io/2020/01/06/leetcode236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</a>
+    <p><span class="copy-title">发布时间:</span>2020-03-13, 12:09:27</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-13, 12:10:16</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/13/%E7%AC%94%E8%AF%95%E9%A2%9801-16%E5%B9%B4%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="笔试题01-16年字节跳动后端开发">http://jiangwei5.github.io/2020/03/13/%E7%AC%94%E8%AF%95%E9%A2%9801-16%E5%B9%B4%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
