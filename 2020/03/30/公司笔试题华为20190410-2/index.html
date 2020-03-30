@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode187.重复DNA序列 | jiangwei5</title>
-  <meta name="keywords" content=" 位运算 ">
-  <meta name="description" content="leetcode187.重复DNA序列 | jiangwei5">
+  <title>公司笔试题华为20190410_2 | jiangwei5</title>
+  <meta name="keywords" content=" 字符串 ">
+  <meta name="description" content="公司笔试题华为20190410_2 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -1163,9 +1163,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode187-重复DNA序列" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-公司笔试题华为20190410-2" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode187.重复DNA序列</h1>
+        <h1 class="article-title">公司笔试题华为20190410_2</h1>
     
     <div class="article-meta">
         
@@ -1173,26 +1173,26 @@
         
         <span class="book">
             
-                <a  data-rel="leetcode">leetcode</a>
+                <a  data-rel="公司笔试题">公司笔试题</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color4">位运算</a>
+            <a class="color4">字符串</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-02-04 19:12:22'>2020-02-04 18:52</time>
+        创建时间:<time class="date" title='更新时间: 2020-03-30 23:17:05'>2020-03-30 23:16</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:321</span>
+        <span>字数:383</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1222,7 +1222,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#华为20190410-2"><span class="toc-text">华为20190410-2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1238,35 +1238,70 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>所有 DNA 都由一系列缩写为 A，C，G 和 T 的核苷酸组成，例如：“ACGAATTCCG”。在研究 DNA 时，识别 DNA 中的重复序列有时会对研究非常有帮助。</p>
-<p>编写一个函数来查找 DNA 分子中所有出现超过一次的 10 个字母长的序列（子串）。</p>
-<p>示例：</p>
-<pre><code>输入：s = &quot;AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT&quot;
-输出：[&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;]</code></pre><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/repeated-dna-sequences" target="_blank" rel="noopener">https://leetcode-cn.com/problems/repeated-dna-sequences</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>map方法就不提了，这里讲一种位运算的方法 设计stl类库 bitset。<br>用2位表示一种碱基对</p>
-<pre><code class="cpp">class Solution {
-public:
-    vector&lt;string&gt; findRepeatedDnaSequences(string s) {
-        unordered_map&lt;char, int&gt;m {{'A', 0}, {'C', 1}, {'G', 2}, {'T', 3}};
-        vector&lt;string&gt; res;
-        bitset&lt;1 &lt;&lt; 20&gt; s1, s2;             // 为什么要这么写，而不是直接写20， 可能是总共有21位也只能为21位
-        int val = 0, mask = (1 &lt;&lt; 20) - 1;
-        for(int i = 0; i &lt;10; ++i) val = (val &lt;&lt; 2) | m[s[i]];
-        s1.set(val);
-        for(int i = 10; i &lt; s.size(); ++i)
+        <h2 id="华为20190410-2"><a href="#华为20190410-2" class="headerlink" title="华为20190410-2"></a>华为20190410-2</h2><p>给定一个字符串，字符串包含数字、大小写字母以及括号（包括大括号，中括号，小括号），括号可以嵌套，即括号里面可以出现数字和括号。</p>
+<p>按照如下规则对字符串进行展开，不需要考虑括号不成对的问题，不考虑数字后面没有括号的情况，即 2a2(b)不考虑。</p>
+<ul>
+<li>数字表示括号里的字符串重复的次数，展开后的字符串不包含括号</li>
+</ul>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>利用栈进行计算，每次判断此时是否是右括号，如果是的话，拿到对应的左括号之前的所有字符，再拿到对应左括号的数字，对字符进行重复以后，全部入栈。如果不是右括号，那么直接入栈 。</p>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;stack&gt;
+using namespace std;
+
+int main() 
+{
+        string str;
+        stack&lt;char&gt; s;
+        while (cin &gt;&gt; str) 
         {
-            val = ((val &lt;&lt; 2) &amp; mask) | m[s[i]];
-            if(s2.test(val)) continue;
-            if(s1.test(val))
-            {
-                res.push_back(s.substr(i - 9, 10));
-                s2.set(val);
-            }
-            else s1.set(val);
+               for (int i = 0; i &lt; str.size(); i++) 
+               {
+                       if (str[i] == &#39;(&#39;) continue;
+                       else if (str[i] != &#39;)&#39;) 
+                       {
+                              s.push(str[i]);
+                       }
+                       else 
+                       {
+                              string tmp;
+                              while ((s.top() &gt;= &#39;a&#39; &amp;&amp; s.top() &lt;= &#39;z&#39;) || (s.top() &gt;= &#39;A&#39; 
+&amp;&amp; s.top() &lt;= &#39;Z&#39;)) 
+                              {
+                                      char c = s.top();
+                                      tmp = c + tmp;
+                                      s.pop();
+                              }
+                              string strNum;
+                              while (!s.empty() &amp;&amp; (s.top() &gt;= &#39;0&#39; &amp;&amp; s.top() &lt;= &#39;9&#39;) )
+                              {
+                                      char c = s.top();
+                                      strNum = c + strNum;
+                                      s.pop();
+                              }
+                              int num = stoi(strNum);
+                              string change;
+                              while (num--) 
+                              {
+                                      change += tmp;
+                              }
+                              for (int j = 0; j &lt; change.size(); j++) 
+                              {
+                                      s.push(move(change[j]));
+                              }
+                       }
+               }
+               string res;
+               while (!s.empty()) 
+               {
+                       char c = s.top();
+                       s.pop();
+                       res = c + res;
+               }
+               cout &lt;&lt; res &lt;&lt; endl;
         }
-        return res;
-    }
-};</code></pre>
+        return 0;
+}</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -1280,12 +1315,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode187.重复DNA序列</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">321</span></p>
+    <p><span class="copy-title">文章标题:</span>公司笔试题华为20190410_2</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">383</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-02-04, 18:52:00</p>
-    <p><span class="copy-title">最后更新:</span>2020-02-04, 19:12:22</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/02/04/leetcode187-%E9%87%8D%E5%A4%8DDNA%E5%BA%8F%E5%88%97/" title="leetcode187.重复DNA序列">http://jiangwei5.github.io/2020/02/04/leetcode187-%E9%87%8D%E5%A4%8DDNA%E5%BA%8F%E5%88%97/</a>
+    <p><span class="copy-title">发布时间:</span>2020-03-30, 23:16:32</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-30, 23:17:05</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/30/%E5%85%AC%E5%8F%B8%E7%AC%94%E8%AF%95%E9%A2%98%E5%8D%8E%E4%B8%BA20190410-2/" title="公司笔试题华为20190410_2">http://jiangwei5.github.io/2020/03/30/%E5%85%AC%E5%8F%B8%E7%AC%94%E8%AF%95%E9%A2%98%E5%8D%8E%E4%B8%BA20190410-2/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
