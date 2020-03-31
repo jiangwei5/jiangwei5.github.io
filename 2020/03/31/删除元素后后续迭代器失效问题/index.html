@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode88合并两个有序数组 | jiangwei5</title>
-  <meta name="keywords" content=" 算法 , 排序 , leetcode ">
-  <meta name="description" content="leetcode88合并两个有序数组 | jiangwei5">
+  <title>删除元素后后续迭代器失效问题 | jiangwei5</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="删除元素后后续迭代器失效问题 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -1187,9 +1187,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode88合并两个有序数组" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-删除元素后后续迭代器失效问题" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode88合并两个有序数组</h1>
+        <h1 class="article-title">删除元素后后续迭代器失效问题</h1>
     
     <div class="article-meta">
         
@@ -1197,30 +1197,20 @@
         
         <span class="book">
             
-                <a  data-rel="leetcode">leetcode</a>
+                <a  data-rel="编程知识">编程知识</a>
             
         </span>
         
         
-        <span class="tag">
-            
-            <a class="color3">算法</a>
-            
-            <a class="color3">排序</a>
-            
-            <a class="color4">leetcode</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-03-31 22:10:44'>2020-03-31 22:08</time>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-03-04 13:18:05'>2019-12-03 11:37</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>字数:318</span>
+        <span>字数:217</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1250,7 +1240,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -1266,48 +1256,47 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。</p>
-<p>说明:</p>
-<p>初始化 nums1 和 nums2 的元素数量分别为 m 和 n。<br>你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中的元素。<br>示例:</p>
-<pre><code>输入:
-nums1 = [1,2,3,0,0,0], m = 3
-nums2 = [2,5,6],       n = 3
+        <p>C++使用迭代器遍历删除数据时 调用erase函数后，原先的迭代器不能使用了，故应该在之前先做处理。</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;map&gt;
+using namespace std;
 
-输出: [1,2,2,3,5,6]</code></pre><p>链接：<a href="https://leetcode-cn.com/problems/merge-sorted-array" target="_blank" rel="noopener">https://leetcode-cn.com/problems/merge-sorted-array</a></p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>下面有了插入排序，因为前m个可以直接跳过了，但是时间复杂度仍然较慢</p>
-<pre><code class="cpp">class Solution {
-public:
-    void merge(vector&lt;int&gt;&amp; nums1, int m, vector&lt;int&gt;&amp; nums2, int n) {
-        for(int i = m, j = 0; j &lt; n; j++,i++)
+int main()
+{
+    int n;
+    while (cin &gt;&gt; n) 
+    {
+        map&lt;int, int&gt; *mapValue = new map&lt;int, int&gt;();
+        mapValue-&gt;insert(make_pair(2, 1));
+        mapValue-&gt;insert(make_pair(3, 1));
+        mapValue-&gt;insert(make_pair(4, 1));
+        mapValue-&gt;insert(make_pair(5, 1));
+        mapValue-&gt;insert(make_pair(6, 1));
+        for (std::map&lt;int, int&gt;::iterator it = mapValue-&gt;begin(); it != mapValue-&gt;end(); )
         {
-            nums1[i] = nums2[j];
-        }
-        for(int i = m; i &lt; m + n ; i++)
-        {
-            int P = nums1[i];
-            int j;
-            for (j = i; j &gt; 0 &amp;&amp; nums1[j - 1] &gt; P; j--)
+            int key = it-&gt;first;
+            if (key % 2 == 0)
             {
-                nums1[j] = nums1[j - 1];
+                mapValue-&gt;erase(it++);            // 对这个迭代器先做偏移，取原先迭代器的作为移除点事其实是可行的。删的那个迭代器是原来的副本
             }
-            nums1[j] = P;
+            else
+            {
+                ++it;
+            }
         }
-        return;
+
+        for (std::map&lt;int, int&gt;::iterator it = mapValue-&gt;begin(); it != mapValue-&gt;end(); ++it)
+        {
+            cout &lt;&lt; it-&gt;first &lt;&lt; &quot;  value = &quot; &lt;&lt; it-&gt;second &lt;&lt; endl;
+        }
+
+        delete mapValue;
+        mapValue = NULL;
+
     }
-};</code></pre>
-<p>看到评论区这个解法，虽然想到从后往前，但是没想到这样子实现，一开始被自己否定了，这个方法很厉害。</p>
-<pre><code class="java">class Solution {
-    public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int p = m-- + n-- - 1;
-        while (m &gt;= 0 &amp;&amp; n &gt;= 0) {
-            nums1[p--] = nums1[m] &gt; nums2[n] ? nums1[m--] : nums2[n--];
-        }
 
-        while (n &gt;= 0) {
-            nums1[p--] = nums2[n--];
-        }
-    }</code></pre>
-
+    return 0;
+}</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
     </div>
@@ -1320,12 +1309,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode88合并两个有序数组</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">318</span></p>
+    <p><span class="copy-title">文章标题:</span>删除元素后后续迭代器失效问题</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">217</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-12-03, 11:37:51</p>
-    <p><span class="copy-title">最后更新:</span>2020-03-04, 13:18:05</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/03/leetcode88%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/" title="leetcode88合并两个有序数组">http://jiangwei5.github.io/2019/12/03/leetcode88%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/</a>
+    <p><span class="copy-title">发布时间:</span>2020-03-31, 22:08:55</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-31, 22:10:44</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/31/%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0%E5%90%8E%E5%90%8E%E7%BB%AD%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/" title="删除元素后后续迭代器失效问题">http://jiangwei5.github.io/2020/03/31/%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0%E5%90%8E%E5%90%8E%E7%BB%AD%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
