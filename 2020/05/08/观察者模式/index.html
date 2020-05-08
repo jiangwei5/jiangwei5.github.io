@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode739.每日温度 | jiangwei5</title>
-  <meta name="keywords" content=" 算法 , 最小栈 ">
-  <meta name="description" content="leetcode739.每日温度 | jiangwei5">
+  <title>观察者模式 | jiangwei5</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="观察者模式 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -1251,9 +1251,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode739-每日温度" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-观察者模式" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode739.每日温度</h1>
+        <h1 class="article-title">观察者模式</h1>
     
     <div class="article-meta">
         
@@ -1261,28 +1261,20 @@
         
         <span class="book">
             
-                <a  data-rel="leetcode">leetcode</a>
+                <a  data-rel="设计模式">设计模式</a>
             
         </span>
         
         
-        <span class="tag">
-            
-            <a class="color3">算法</a>
-            
-            <a class="color4">最小栈</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-05-08 16:26:52'>2020-05-08 16:26</time>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-01-21 21:55:29'>2020-01-21 21:54</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>字数:612</span>
+        <span>字数:713</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1312,7 +1304,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#观察者模式（C-实现）"><span class="toc-text">观察者模式（C++实现）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#首先，先把通知者的行为抽象为一个接口：（subject）"><span class="toc-text">首先，先把通知者的行为抽象为一个接口：（subject）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二，然后班长作为一个具体的通知者：（ConcreteSubject）"><span class="toc-text">第二，然后班长作为一个具体的通知者：（ConcreteSubject）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三，定义一个监听者的接口，想要监听老师来了这个消息的同学必须要实现这个接口：（Observer）"><span class="toc-text">第三，定义一个监听者的接口，想要监听老师来了这个消息的同学必须要实现这个接口：（Observer）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四，zhangsan和lisi监听老师来了这个接口（ConcreteObserver）"><span class="toc-text">第四，zhangsan和lisi监听老师来了这个接口（ConcreteObserver）</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1328,76 +1320,104 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高超过该日的天数。如果之后都不会升高，请在该位置用 0 来代替。</p>
-<p>例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。</p>
-<p>提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的均为华氏度，都是在 [30, 100] 范围内的整数。</p>
-<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/daily-temperatures" target="_blank" rel="noopener">https://leetcode-cn.com/problems/daily-temperatures</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>方法1：暴力  代码略<br>方法2：</p>
-<ul>
-<li>根据题意，从最后一天推到第一天，这样会简单很多。因为最后一天显然不会再有升高的可能，结果直接为0。</li>
-<li>再看倒数第二天的温度，如果比倒数第一天低，那么答案显然为1，如果比倒数第一天高，又因为倒数第一天</li>
-<li>对应的结果为0，即表示之后不会再升高，所以倒数第二天的结果也应该为0。</li>
-<li>自此我们容易观察出规律，要求出第i天对应的结果，只需要知道第i+1天对应的结果就可以：</li>
-<li><ul>
-<li>若T[i] &lt; T[i+1]，那么res[i]=1；</li>
-</ul>
-</li>
-<li><ul>
-<li>若T[i] &gt; T[i+1]</li>
-</ul>
-</li>
-<li><ul>
-<li>res[i+1]=0，那么res[i]=0;</li>
-</ul>
-</li>
-<li><ul>
-<li>res[i+1]!=0，那就比较T[i]和T[i+1+res[i+1]]（即将第i天的温度与比第i+1天大的那天的温度进行比较）</li>
-</ul>
-</li>
-</ul>
-<pre><code class="cpp">class Solution {
+        <h3 id="观察者模式（C-实现）"><a href="#观察者模式（C-实现）" class="headerlink" title="观察者模式（C++实现）"></a>观察者模式（C++实现）</h3><p>观察者模式：定义了一种一对多的依赖关系，让多个观察者对象同时监听某一主体对象，在主题对象的状态发生变化时，会通知所有的观察者<br>观察者模式角色如下</p>
+<blockquote>
+<p>抽象主题（subject）角色：抽象主题角色提供维护一个观察者对象集合的操作方法，对集合的增加、删除等。<br>具体主题（ConcreteSubject）角色：将有关状态存入具体的观察者对象；在具体主题内部状态改变时，给所有登记过的观察者发通知。具体主题角色负责试下抽象主题中的方法。<br>抽象观察者(Observer）角色：为具体观察者提供一个更新接口<br>具体观察者（Concreteserver）角色：存储与主题相关的自洽状态，实现抽象观察者提供的更新接口。</p>
+</blockquote>
+<p>Case：<br>在教室里老师还没有来，同学都在干着各的事情，小张正在打游戏，小李正在抄作业…..,  现在同学们要求班长当卧底，监视老师，当老师来了通知大家一声。然后打游戏的马上停止，抄作业的也停止。这里班长相当于是一个通知者， 小张、小李，以及其他同学显然是监听者，他们监听了班长那的消息，一旦老师来了马上采取相关的行动。</p>
+<h3 id="首先，先把通知者的行为抽象为一个接口：（subject）"><a href="#首先，先把通知者的行为抽象为一个接口：（subject）" class="headerlink" title="首先，先把通知者的行为抽象为一个接口：（subject）"></a>首先，先把通知者的行为抽象为一个接口：（subject）</h3><pre><code class="cpp">// 这是一个抽象类
+class Inotifier
+{
+public：
+    virtual void registerListenner (ITeacherListenner *l) = 0;          // 虚函数后加 = 0，表示这个函数为纯虚函数，表示这个类为抽象类
+    virtual void removeListenner(ITeacherListenner *l) = 0;
+    virtual void notify() = 0;
+};</code></pre>
+<h3 id="第二，然后班长作为一个具体的通知者：（ConcreteSubject）"><a href="#第二，然后班长作为一个具体的通知者：（ConcreteSubject）" class="headerlink" title="第二，然后班长作为一个具体的通知者：（ConcreteSubject）"></a>第二，然后班长作为一个具体的通知者：（ConcreteSubject）</h3><pre><code class="cpp">class MonitorNotifier: Public Inotifier
+{
 public:
-    vector&lt;int&gt; dailyTemperatures(vector&lt;int&gt;&amp; T) {
-        vector&lt;int&gt; res(T.size());
-        res[T.size() - 1] = 0;
-        for(int i = T.size() - 2; i &gt;= 0; i--)
+    void registerListenner(ITeacherListenner *l)
+    {
+        listenner.push_back(l);
+    }
+    void removeListenner(ITeacherListenner *l)
+    {
+        list&lt;ITeacherListenner*&gt;::iterator it;
+        for(it = listenners.begin(); it != listenners.end(); it++)
         {
-            for(int j = i + 1; j &lt; T.size(); j += res[j])
+            if(*it == l)
             {
-                if(T[i] &lt; T[j])
-                {
-                    res[i] = j - i;
-                    break; 
-                }
-                else if(res[j] == 0)
-                {
-                    res[i] = 0;
-                    break; 
-                }
+                listenners.remove(l);
+                break;
             }
         }
-        return res;
     }
-};</code></pre>
-<p>方法3：维护最小栈，栈中始终从大到小排列。当找到元素比栈顶元素大时，说明找到比栈顶元素大的数，所以弹栈。最后未弹栈的部分res为0.</p>
-<pre><code class="cpp">class Solution {
-public:
-    vector&lt;int&gt; dailyTemperatures(vector&lt;int&gt;&amp; T) {
-        stack&lt;int&gt; S;
-        vector&lt;int&gt; res(T.size(), 0);
-        for(int i = 0; i &lt; T.size(); i++)
+    void notify
+    {
+        list&lt;ITeacherListenner*&gt; :: iterator it;
+        for(it = listenners.begin(); it != listenners.end(); i++)
         {
-            while(!S.empty() &amp;&amp; T[i] &gt; T[S.top()])
-            {
-                int tmp = S.top();
-                S.pop();
-                res[tmp] = i - tmp;
-            }
-            S.push(i);
+            (*it)-&gt;onTeacherComming(mValue);
         }
-        return res;
+    }
+    void setValue(int value)
+    {
+        mValue = value;
+        notify();
+    }
+private:
+    list&lt;ITeacherListenner*&gt; listenners;
+    int mValue;
+};</code></pre>
+<h3 id="第三，定义一个监听者的接口，想要监听老师来了这个消息的同学必须要实现这个接口：（Observer）"><a href="#第三，定义一个监听者的接口，想要监听老师来了这个消息的同学必须要实现这个接口：（Observer）" class="headerlink" title="第三，定义一个监听者的接口，想要监听老师来了这个消息的同学必须要实现这个接口：（Observer）"></a>第三，定义一个监听者的接口，想要监听老师来了这个消息的同学必须要实现这个接口：（Observer）</h3><pre><code class="cpp">class ITeacherListenner
+{
+public:
+    virtual void onTeacherComming(int value) = 0;
+}</code></pre>
+<h3 id="第四，zhangsan和lisi监听老师来了这个接口（ConcreteObserver）"><a href="#第四，zhangsan和lisi监听老师来了这个接口（ConcreteObserver）" class="headerlink" title="第四，zhangsan和lisi监听老师来了这个接口（ConcreteObserver）"></a>第四，zhangsan和lisi监听老师来了这个接口（ConcreteObserver）</h3><pre><code class="cpp">class ZhangSan: public ITeacherListenner
+{
+public:
+    void onTeacherComming(int value)
+    {
+        stopCopyWork(value);
+    }
+    void stopCopyWork(int value)
+    {
+        cout &lt;&lt; &quot;zhangsan stopCopyWork +&quot; &lt;&lt; value &lt;&lt; endl;
+    }
+};
+class LiSi: public ITeacherListenner
+{
+public:
+    void onTeacherComming(int value)
+    {
+        stopPlayGame(value);
+    }
+    void stopPlayGame(int value)
+    {
+        cout &lt;&lt; &quot;LiSi stopPlayGame +&quot; &lt;&lt; value &lt;&lt; endl;
     }
 };</code></pre>
+<pre><code class="cpp">int main()
+{
+    cout &lt;&lt; &quot;Hello World1-------------&quot; &lt;&lt; endl;
+    MonitorNotifier monitor;
+    ZhangSan zs;
+    LiSi ls;
+    monitor.registerListenner(&amp;zs);
+    monitor.registerListenner(&amp;ls);
+    monitor.setValue(1);
+    cout &lt;&lt; &quot;Hello World--------------&quot; &lt;&lt;endl;
+    monitor.removeListenner(&amp;ls);
+    monitor.setValue(2);
+    return 0;
+}</code></pre>
+<p>运行结果如下：</p>
+<pre><code class="cpp">Hello World1-------------
+zhangsan stopCopyWork + 1
+lisi stopPlayGame + 1
+Hello World2-------------
+zhangsan stopCopyWork + 2</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -1411,12 +1431,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode739.每日温度</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">612</span></p>
+    <p><span class="copy-title">文章标题:</span>观察者模式</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">713</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-01-21, 21:54:46</p>
-    <p><span class="copy-title">最后更新:</span>2020-01-21, 21:55:29</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/21/leetcode739-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/" title="leetcode739.每日温度">http://jiangwei5.github.io/2020/01/21/leetcode739-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-08, 16:26:15</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-08, 16:26:52</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/05/08/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" title="观察者模式">http://jiangwei5.github.io/2020/05/08/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
