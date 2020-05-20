@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>leetcode338.比特位计数 | jiangwei5</title>
-  <meta name="keywords" content=" 位运算 ">
-  <meta name="description" content="leetcode338.比特位计数 | jiangwei5">
+  <title>用malloc动态申请二维数组的三种方法 | jiangwei5</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="用malloc动态申请二维数组的三种方法 | jiangwei5">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
@@ -1259,9 +1259,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode338-比特位计数" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-用malloc动态申请二维数组的三种方法" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">leetcode338.比特位计数</h1>
+        <h1 class="article-title">用malloc动态申请二维数组的三种方法</h1>
     
     <div class="article-meta">
         
@@ -1269,26 +1269,20 @@
         
         <span class="book">
             
-                <a  data-rel="leetcode">leetcode</a>
+                <a  data-rel="算法笔记">算法笔记</a>
             
         </span>
         
         
-        <span class="tag">
-            
-            <a class="color4">位运算</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-05-20 14:22:45'>2020-05-20 14:22</time>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-01-10 17:19:22'>2020-01-10 17:18</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>字数:489</span>
+        <span>字数:349</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1318,7 +1312,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法1：利用二级指针申请一个二维数组"><span class="toc-text">方法1：利用二级指针申请一个二维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法二：用数组指针形式申请一个二维数组"><span class="toc-text">方法二：用数组指针形式申请一个二维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法三：用一个单独的一位数组来模拟二维数组"><span class="toc-text">方法三：用一个单独的一位数组来模拟二维数组</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1334,54 +1328,77 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回。</p>
-<p>示例 1:</p>
-<pre><code>输入: 2
-输出: [0,1,1]</code></pre><p>示例 2:</p>
-<pre><code>输入: 5
-输出: [0,1,1,2,1,2]</code></pre><p>进阶:</p>
-<p>给出时间复杂度为O(n*sizeof(integer))的解答非常容易。但你可以在线性时间O(n)内用一趟扫描做到吗？<br>要求算法的空间复杂度为O(n)。<br>你能进一步完善解法吗？要求在C++或任何其他语言中不使用任何内置函数（如 C++ 中的 __builtin_popcount）来执行此操作。</p>
-<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/counting-bits" target="_blank" rel="noopener">https://leetcode-cn.com/problems/counting-bits</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>解法1：<br>利用8- 15中1 的个数是0 - 7 中的个数+1来求解</p>
-<pre><code class="cpp">class Solution {
-public:
-    vector&lt;int&gt; countBits(int num) {
-        vector&lt;int&gt; res(num + 1);
-        int count = 0;
-        int size = 1;
-        while(true)
+        <p>转自 <a href="https://blog.csdn.net/fengxinlinux/article/details/51541003" target="_blank" rel="noopener">https://blog.csdn.net/fengxinlinux/article/details/51541003</a></p>
+<h2 id="方法1：利用二级指针申请一个二维数组"><a href="#方法1：利用二级指针申请一个二维数组" class="headerlink" title="方法1：利用二级指针申请一个二维数组"></a>方法1：利用二级指针申请一个二维数组</h2><pre><code class="cpp">#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+int main()
+{
+    int **a;        // 用二级指针动态申请二维数组
+    int i, j;
+    int m, n;
+    printf(&quot;请输入行数\n&quot;);
+    scanf(&quot;%d&quot;, &amp;m);
+    printf(&quot;请输入列数\n&quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    a = (int**)malloc(sizeof(int*) * m);
+    for(i = 0; i &lt; m; i++)
+    {
+        a[i] = (int*)malloc(sizeof(int*) * n);
+    }
+    for(i = 0; i &lt; m; i++)
+    {
+        for(j = 0; j &lt; n; j++)
         {
-            if(count == num) break;
-            int size = count + 1;
-            for(int i = 0; i &lt; size; ++i)
-            {
-                ++count;
-                res[count] = 1 + res[i];
-                if(count == num) break;
-            }
+            printf(&quot;%p\n&quot; &amp;a[i][j]);
         }
-        return res;
     }
-};</code></pre>
-<p>解法2：i &amp; (i - 1)可以去掉i最右边的一个1（如果有）</p>
-<pre><code class="java">public int[] countBits(int num) {
-        int[] res = new int[num + 1];
-        for(int i = 1;i&lt;= num;i++){  //注意要从1开始，0不满足
-            res[i] = res[i &amp; (i - 1)] + 1;
-        }
-        return res;
-    }</code></pre>
-<p>解法3：i &gt;&gt; 1会把最低位去掉，因此i &gt;&gt; 1 也是比i小的，同样也是在前面的数组里算过。当 i 的最低位是0，则 i 中1的个数和i &gt;&gt; 1中1的个数相同；当i的最低位是1，i 中1的个数是 i &gt;&gt; 1中1的个数再加1</p>
-<pre><code class="cpp">class Solution {
-public:
-    vector&lt;int&gt; countBits(int num) {
-        vector&lt;int&gt; res(num + 1);
-        for(int i = 0;i&lt;= num;i++){
-            res[i] = res[i &gt;&gt; 1] + (i &amp; 1);  //注意i&amp;1需要加括号
-        }
-        return res;
+    for(int i = 0; i &lt; m; i++)
+    {
+        free(a[i]);
     }
-};</code></pre>
+    free(a);
+    return 0;
+}</code></pre>
+<h2 id="方法二：用数组指针形式申请一个二维数组"><a href="#方法二：用数组指针形式申请一个二维数组" class="headerlink" title="方法二：用数组指针形式申请一个二维数组"></a>方法二：用数组指针形式申请一个二维数组</h2><pre><code class="cpp">#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+int main()
+{
+    int i, j;
+    // 申请一个3行2列的整形数组
+    int (*a)[2] = (int(*)[2])malloc(sizeof(int) * 3 * 2);
+    for(i = 0; i &lt; 3; i++)
+    {
+        for(j = 0; j &lt; 2; j++)
+        {
+            printf(&quot;%p\n&quot; &amp;a[i][j]);
+        }
+    }
+    free(a);
+    return 0;
+}</code></pre>
+<h2 id="方法三：用一个单独的一位数组来模拟二维数组"><a href="#方法三：用一个单独的一位数组来模拟二维数组" class="headerlink" title="方法三：用一个单独的一位数组来模拟二维数组"></a>方法三：用一个单独的一位数组来模拟二维数组</h2><pre><code class="cpp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main()
+{
+    int nrows,ncolumns;
+    int *Array;
+    int i,j;
+    printf(&quot;please input nrows&amp;ncolumns:\n&quot;);
+    scanf(&quot;%d%d&quot;,&amp;nrows,&amp;ncolumns);
+    Array=(int * )malloc(nrows*ncolumns*sizeof(int));   //申请内存空间
+    for(i=0; i&lt;nrows; i++)
+    {
+        for(j=0; j&lt;ncolumns; j++)
+        {
+            Array[i * ncolumns+j]=1;
+            printf(&quot;%d &quot;,Array[ i * ncolumns+j]);   //用Array[i*ncolumns+j] 访问第i,j个成员
+        }
+        printf(&quot;\n&quot;);
+    }
+    free(Array);
+    return 0;
+}</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21860354@zju.edu.cn </span>
@@ -1395,12 +1412,12 @@ public:
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>leetcode338.比特位计数</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">489</span></p>
+    <p><span class="copy-title">文章标题:</span>用malloc动态申请二维数组的三种方法</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">349</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="jiangwei">jiangwei</a></p>
-    <p><span class="copy-title">发布时间:</span>2020-01-10, 17:18:54</p>
-    <p><span class="copy-title">最后更新:</span>2020-01-10, 17:19:22</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/10/leetcode338-%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/" title="leetcode338.比特位计数">http://jiangwei5.github.io/2020/01/10/leetcode338-%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/</a>
+    <p><span class="copy-title">发布时间:</span>2020-05-20, 14:22:14</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-20, 14:22:45</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/05/20/%E7%94%A8malloc%E5%8A%A8%E6%80%81%E7%94%B3%E8%AF%B7%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95/" title="用malloc动态申请二维数组的三种方法">http://jiangwei5.github.io/2020/05/20/%E7%94%A8malloc%E5%8A%A8%E6%80%81%E7%94%B3%E8%AF%B7%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
